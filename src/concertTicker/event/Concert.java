@@ -2,6 +2,7 @@
 package concertTicker.event;
 
 import concertTicker.artist.Artist;
+import java.time.LocalDate;
 
 /**
  *
@@ -10,7 +11,7 @@ import concertTicker.artist.Artist;
 public interface Concert extends Event{
 
     Artist artist();
-    String date();
+    LocalDate date();
     String description();
     int availableTickets();
     void buyTickets(int amount);

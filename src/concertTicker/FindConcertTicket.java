@@ -6,6 +6,7 @@ import concertTicker.ticket.Ticket;
 import concertTicker.artist.Artist;
 import concertTicker.event.Event;
 import concertTicker.users.User;
+import java.time.LocalDate;
 import java.util.Iterator;
 
 /**
@@ -67,7 +68,7 @@ public interface FindConcertTicket {
      * @throws EventAlreadyExistsException the event already exists in the collection
      * @throws ArtistNotFoundException given artist name not found
      */
-    void addEvent(String eventName, String artistName, String description, String date, int availableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
+    void addEvent(String eventName, String artistName, String description, LocalDate date, int availableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
     
     /**
      * Adds new festival type event to the collection
@@ -76,14 +77,13 @@ public interface FindConcertTicket {
      * @param description festival's description
      * @param days festival duration days 
      * @param startDate festival start date
-     * @param endDate festival end date
      * @param avaiableTickets int array of available tickets to the festival, must be order by festival days (first day to last)
      * @param price price of each day ticket
      * @throws InvalidPrivilegeException current user logged in is not an Administrator
      * @throws EventAlreadyExistsException the event already exists in the collection
      * @throws ArtistNotFoundException ArtistNotFoundException given artist name not found
      */
-    void addEvent(String eventName, String[] artistName, int days, String startDate, String endDate, String description, int[] avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
+    void addEvent(String eventName, String[] artistName, int days, LocalDate startDate, String description, int[] avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
    
     /**
      * Check if event exists in the collection

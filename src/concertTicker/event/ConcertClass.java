@@ -2,6 +2,7 @@
 package concertTicker.event;
 
 import concertTicker.artist.Artist;
+import java.time.LocalDate;
 
 /**
  *
@@ -10,11 +11,11 @@ import concertTicker.artist.Artist;
 public class ConcertClass extends EventClass implements Concert{
     
     private Artist artist;
-    private String date;
+    private LocalDate date;
     private int avaiableTickets;
     private int price;
 
-    public ConcertClass(String eventName, Artist artist, String date, String description, int avaiableTickets, int price) {
+    public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int avaiableTickets, int price) {
         super(eventName, description);
         this.artist = artist;
         this.date = date;
@@ -29,7 +30,7 @@ public class ConcertClass extends EventClass implements Concert{
     }
 
     @Override
-    public String date() {
+    public LocalDate date() {
         return date;
     }
 
@@ -54,7 +55,7 @@ public class ConcertClass extends EventClass implements Concert{
     public boolean equals(Event event) {
         if(event instanceof Concert){
             Concert conc = (Concert) event;
-            if (conc.getEventName().equalsIgnoreCase(super.getEventName()) && conc.date().equalsIgnoreCase(date))
+            if (conc.getEventName().equalsIgnoreCase(super.getEventName()) && conc.date().isEqual(date))
                 return true;
         }
         return false;

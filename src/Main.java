@@ -4,11 +4,15 @@ import java.util.Scanner;
 import concertTicker.FindConcertTicket.*;
 import concertTicker.*;
 import concertTicker.exceptions.AnotherUserLoggedInException;
+import concertTicker.exceptions.ArtistAlreadyExistsException;
+import concertTicker.exceptions.InvalidPrivilegeException;
 import concertTicker.exceptions.LogoutException;
 import concertTicker.exceptions.UserAlreadyExistsException;
 import concertTicker.exceptions.UserAlreadyLoggedInException;
 import concertTicker.exceptions.UserNotFoundException;
 import concertTicker.exceptions.WrongPasswordException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +21,6 @@ import concertTicker.exceptions.WrongPasswordException;
 public class Main {
 
     //user input
-    
     //all users
     private static final String CMD_SHOWS = "SHOWS";
     private static final String CMD_SHOWS_BY_CLIENTS = "SHOWSBYCLIENTS";
@@ -36,7 +39,6 @@ public class Main {
     private static final String CMD_BUY_TICKET = "BUYTICKET";
     private static final String CMD_MY_TICKETS = "MYTICKETS";
 
-    
     //system messages
     private static final String SYS_EXIST_MESSAGE = "Exiting.\n";
     private static final String SYS_ALL_SHOWS_LIST_HEADER = "All shows:\n";
@@ -61,21 +63,16 @@ public class Main {
     private static final String EX_EVENT_ALREADY_EXISTS = "";
     private static final String EX_EVENT_NOT_FOUND = "Show does not exists.\n";
     private static final String EX_EVENT_SOLD_OUT = "There are not sufficient seats for the request.\n";
-    private static final String EX_INVALID_PRIVILEGE= "User cannot execute this command.\n";
+    private static final String EX_INVALID_PRIVILEGE = "User cannot execute this command.\n";
     private static final String EX_LOGOUT = "No user is logged in.\n";
     private static final String EX_UNKOWN_EVENT_TYPE = "Unknown type of show.\n";
     private static final String EX_USER_ALREADY_EXISTS = "User already exists.\n";
-    private static final String EX_USER_ALREADY_LOGGED_IN= "User already logged in.\n";
+    private static final String EX_USER_ALREADY_LOGGED_IN = "User already logged in.\n";
     private static final String EX_USER_NOT_FOUND = "User does not exist.\n";
-    private static final String EX_WRONG_PASSWORD= "Wrong password.\n";
-    
+    private static final String EX_WRONG_PASSWORD = "Wrong password.\n";
+
     private static final String EX_UNKNOWN = "Unknown exception occured.\n";
-    
-    
-    
-    
-    
-    
+
     public static void main(String[] args) {
         interpreter();
 
@@ -125,8 +122,8 @@ public class Main {
 
     private static void login(FindConcertTicket fct, Scanner in) {
         try {
-            String email = in.next();
-            String password = in.next();
+            String email = in.nextLine();
+            String password = in.nextLine();
             fct.logIn(email, password);
             System.out.printf(SYS_LOGIN_SUCCESS, email);
         } catch (UserNotFoundException e) {
@@ -148,5 +145,36 @@ public class Main {
             System.out.println(EX_LOGOUT);
         }
     }
+
+    private static void addArtist(FindConcertTicket fct, Scanner in) {
+        try {
+            String name = in.nextLine();
+            int n_albuns = Integer.parseInt(in.nextLine());
+            String[] albuns = new String[n_albuns];
+            for (int i = 0; i < n_albuns; i++) {
+                albuns[i] = in.nextLine();
+            }
+            int n_elements = Integer.parseInt(in.nextLine());
+            if (n_elements == 1) {
+                fct.addArtist(name, albuns);
+            } else {
+                String[] elements = new String[n_elements];
+                for (int i = 0; i < n_elements; i++) {
+                    elements[i] = in.nextLine();
+                }
+                fct.addArtist(name, albuns, elements);
+            }
+            System.out.println(SYS_ARTIST_ADDED_SUCCESS);
+        } catch (ArtistAlreadyExistsException e) {
+            System.out.println(EX_ARTIST_ALREADY_EXISTS);
+        } catch (InvalidPrivilegeException e) {
+            System.out.println(EX_INVALID_PRIVILEGE);
+        }
+    }
+    
+    
+
+    
+    
 
 }

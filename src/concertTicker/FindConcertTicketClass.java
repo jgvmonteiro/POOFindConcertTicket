@@ -6,6 +6,7 @@ import concertTicker.event.*;
 import concertTicker.artist.*;
 import concertTicker.ticket.*;
 import concertTicker.users.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -69,7 +70,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     
 
     @Override
-    public void addEvent(String eventName, String artistName, String description, String date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
+    public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
         Artist artist = getArtist(artistName);
@@ -80,7 +81,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public void addEvent(String eventName, String[] artistsName, int days, String startDate, String endDate, String description, int[] avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
+    public void addEvent(String eventName, String[] artistsName, int days, LocalDate startDate, String description, int[] avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
         Artist[] artists = new Artist[days];
@@ -88,7 +89,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             artists[i] = getArtist(artistsName[i]);
         if(hasEvent(eventName))
             throw new EventAlreadyExistsException();   
-        Event e = new FestivalClass(eventName, description, artists, startDate, endDate, days, avaiableTickets, price);
+        Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);
         events.add(e);
     }
 
@@ -147,12 +148,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public String logOut() throws LogoutException {
-        String ret = "";
+        String email;
     	if(currentUser == null)
             throw new LogoutException();
-    	ret = currentUser.getEmail();
+    	email = currentUser.getEmail();
         currentUser = null;
-        return ret;
+        return email;
     }
 
     @Override
@@ -179,7 +180,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new UserAlreadyLoggedInException();
         if(hasUser(email))
             throw new UserAlreadyExistsException();
-        String passw = "";
+        String passw;
         User user;
         if(type == ADMIN){
             passw = "admin"+(adminUsersCount()+1);

@@ -17,7 +17,7 @@ public class ArtistClass implements Artist{
 
     public ArtistClass(String name, String[] albums) {
         this.name = name;
-        this.albums = createAlbumList(albums);
+        this.albums = createList(albums);
     }
 
     @Override
@@ -27,11 +27,10 @@ public class ArtistClass implements Artist{
 
     @Override
     public Iterator<String> getAlbums() {
-
         return albums.iterator();
     }
     
-    private List<String> createAlbumList(String[] albums) {
+    private List<String> createList(String[] albums) {
     	List<String> albumList = new ArrayList<String>();
     	for(int i = 0; i < albums.length; i++){
     		albumList.add(albums[i]);

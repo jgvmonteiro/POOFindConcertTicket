@@ -11,19 +11,19 @@ import java.util.List;
  */
 public class BandClass extends ArtistClass implements Band{
 
-    private List<String> crew;
+    private List<String> elements;
     
-    public BandClass(String name, String[] albuns, String[] crew) {
+    public BandClass(String name, String[] albuns, String[] elements) {
         super(name, albuns);
-        this.crew = createCrewList(crew);
+        this.elements = createList(elements);
     }
 
     @Override
     public Iterator<String> artistsNames() {
-       return crew.iterator();
+       return elements.iterator();
     }
     
-    private List<String> createCrewList(String[] crew) {
+    private List<String> createList(String[] crew) {
     	List<String> crewList = new ArrayList<String>();
     	for(int i = 0; i < crew.length; i++){
     		crewList.add(crew[i]);

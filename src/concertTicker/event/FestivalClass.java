@@ -2,6 +2,7 @@
 package concertTicker.event;
 
 import concertTicker.artist.Artist;
+import java.time.LocalDate;
 
 /**
  *
@@ -17,7 +18,7 @@ public class FestivalClass extends EventClass implements Festival{
     private String endDate;
     
     
-    public FestivalClass(String name, String description, Artist[] artists, String startDate, String endDate, int days, int avaiableTickets[], int price) {
+    public FestivalClass(String name, String description, Artist[] artists, LocalDate startDate, int days, int avaiableTickets[], int price) {
         super(name, description);
         
     }
