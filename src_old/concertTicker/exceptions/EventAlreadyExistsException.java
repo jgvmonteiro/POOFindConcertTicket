@@ -7,9 +7,4 @@ package concertTicker.exceptions;
  */
 public class EventAlreadyExistsException extends Exception{
 
-    public EventAlreadyExistsException() {
-        super();
-    }
-
-    
 }

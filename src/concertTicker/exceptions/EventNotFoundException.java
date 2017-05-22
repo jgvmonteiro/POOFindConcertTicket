@@ -7,17 +7,9 @@ package concertTicker.exceptions;
  */
 public class EventNotFoundException extends Exception{
 
-    private static final String DEFAULT_MESSAGE = "Show does not exists.";
-
     public EventNotFoundException() {
-        super(DEFAULT_MESSAGE);
+        super();
     }
 
-    public EventNotFoundException(String message) {
-        super(message);
-    }
-
-    
-    
     
 }

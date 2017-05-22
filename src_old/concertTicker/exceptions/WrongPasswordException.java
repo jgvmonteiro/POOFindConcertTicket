@@ -7,10 +7,15 @@ package concertTicker.exceptions;
  */
 public class WrongPasswordException extends Exception{
 
+    private static final String DEFAULT_MESSAGE = "Wrong password.";
+
     public WrongPasswordException() {
-        super();
+        super(DEFAULT_MESSAGE);
     }
 
+    public WrongPasswordException(String message) {
+        super(message);
+    }
     
     
     

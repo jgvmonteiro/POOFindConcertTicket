@@ -7,15 +7,10 @@ package concertTicker.exceptions;
  */
 public class InvalidPrivilegeException extends Exception{
 
-    private static final String DEFAULT_MESSAGE = "User cannot execute this command";
-
     public InvalidPrivilegeException() {
-        super(DEFAULT_MESSAGE);
+        super();
     }
 
-    public InvalidPrivilegeException(String message) {
-        super(message);
-    }
     
     
 }

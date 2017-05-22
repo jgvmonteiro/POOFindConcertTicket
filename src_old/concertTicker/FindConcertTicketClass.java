@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Joao Monteiro, Diogo Tavares 
+ * @author Joao Monteiro, Diogo Tavares ;)
  */
 public class FindConcertTicketClass implements FindConcertTicket {
 
@@ -25,7 +25,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.events = new ArrayList();
         this.artists = new ArrayList();
         this.users = new ArrayList();
-        this.currentUser = null;
     }
 
     @Override
@@ -146,13 +145,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public String logOut() throws LogoutException {
-        String ret = "";
-    	if(currentUser == null)
+    public void logOut() throws LogoutException {
+        if(currentUser ==null)
             throw new LogoutException();
-    	ret = currentUser.getEmail();
-        currentUser = null;
-        return ret;
+        currentUser=null;
     }
 
     @Override
@@ -174,15 +170,15 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
     
     @Override
-    public String register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException { //throws WrongTypeException, but it's not tested    	
-    	if(currentUser!=null)
+    public String Register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException {
+        if(currentUser!=null)
             throw new UserAlreadyLoggedInException();
         if(hasUser(email))
             throw new UserAlreadyExistsException();
         String passw = "";
         User user;
         if(type == ADMIN){
-            passw = "admin"+(adminUsersCount()+1);
+            passw = "admin"+adminUsersCount()+1;
             user = new AdminClass(email, passw);
         }else{
             passw = "client"+(users.size() - adminUsersCount() +1);
@@ -213,31 +209,32 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
 	
-	public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
-		
-		return null;
-	}
+    public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
 
-	@Override
-	public Event checkEventData(String eventName, String date) throws EventNotFoundException {
+            return null;
+    }
 
-		return null;
-	}
+    @Override
+    public Event checkEventData(String eventName, String date) throws EventNotFoundException {
 
-	@Override
-	public Iterator<Event> searchEventsWithArtist(String artistName) {
+            return null;
+    }
 
-		return null;
-	}
+    @Override
+    public Iterator<Event> searchEventsWithArtist(String artistName) {
 
-	
-	@Override
-	public Iterator<Ticket> listTickets() {
+            return null;
+    }
 
-		return null;
-	}
+
+    @Override
+    public Iterator<Ticket> listTickets() {
+
+            return null;
+    }
     
-
+    
+    
     
     
     
