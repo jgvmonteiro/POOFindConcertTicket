@@ -7,7 +7,7 @@ package concertTicker.exceptions;
  */
 public class UserNotFoundException extends Exception{
     
-    private static final String DEFAULT_MESSAGE = "User does not exist.";
+    private static final String DEFAULT_MESSAGE = "User does not exist.\n";
 
     public UserNotFoundException() {
         super(DEFAULT_MESSAGE);

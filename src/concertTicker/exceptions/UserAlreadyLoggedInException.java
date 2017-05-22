@@ -7,10 +7,10 @@ package concertTicker.exceptions;
  */
 public class UserAlreadyLoggedInException extends Exception{
     
-    private static final String DEAFULT_MESSAGE = "Another user is logged in.";
+    private static final String DEFAULT_MESSAGE = "User already logged in.\n";
 
     public UserAlreadyLoggedInException() {
-        super(DEAFULT_MESSAGE);
+        super(DEFAULT_MESSAGE);
     }
 
     public UserAlreadyLoggedInException(String message) {

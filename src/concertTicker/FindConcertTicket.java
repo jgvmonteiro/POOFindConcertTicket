@@ -146,9 +146,10 @@ public interface FindConcertTicket {
     
     /**
      * Logs out the current logged user
+     * @return email of user to be logged out
      * @throws LogoutException if no one is logged in
      */
-    void logOut() throws LogoutException;
+    String logOut() throws LogoutException;
  
     /**
      * Check if user exists in the system
@@ -176,7 +177,7 @@ public interface FindConcertTicket {
      * @throws UserAlreadyLoggedInException
      * @throws UserAlreadyExistsException 
      */
-    String Register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException;
+    String register(String type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException;
 
     /**
      * To list all events in the system
@@ -202,8 +203,8 @@ public interface FindConcertTicket {
     
     /**
      * To check an event's data
-     * @param eventName event's name
-     * @param date 
+     * @param eventName
+     * @param date
      * @return event whose data will be checked
      * @throws EventNotFoundException if event doesn't exist
      */
@@ -216,4 +217,8 @@ public interface FindConcertTicket {
      */
     Iterator<Event> searchEventsWithArtist(String artistName);// no enunciado nao diz o que acontece quando alguma coisa corre mal mas deve throwar um artistnotfoundexception
     
+    
+    //////////////////// MISC
+    
+
 }

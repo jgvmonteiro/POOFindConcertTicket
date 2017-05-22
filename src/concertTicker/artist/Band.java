@@ -7,7 +7,7 @@ import java.util.Iterator;
  *
  * @author Joao Monteiro
  */
-public interface Band extends Artist{
+public interface Band {
     
     
     Iterator<String> artistsNames();

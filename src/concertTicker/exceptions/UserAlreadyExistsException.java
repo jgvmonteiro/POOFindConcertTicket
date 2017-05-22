@@ -7,7 +7,7 @@ package concertTicker.exceptions;
  */
 public class UserAlreadyExistsException extends Exception{
 
-    private static final String DEFAULT_MESSAGE = "User already exists.";
+    private static final String DEFAULT_MESSAGE = "User already exists.\n";
 
     public UserAlreadyExistsException() {
         super(DEFAULT_MESSAGE);

@@ -7,7 +7,7 @@ package concertTicker.exceptions;
  */
 public class LogoutException extends Exception{
     
-    private static final String DEFAULT_MESSAGE = "No user logged in.";
+    private static final String DEFAULT_MESSAGE = "No user is logged in.\n";
 
     public LogoutException() {
         super(DEFAULT_MESSAGE);

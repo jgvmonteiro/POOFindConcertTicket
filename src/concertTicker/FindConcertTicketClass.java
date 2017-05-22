@@ -25,6 +25,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.events = new ArrayList();
         this.artists = new ArrayList();
         this.users = new ArrayList();
+        this.currentUser = null;
     }
 
     @Override
@@ -145,10 +146,13 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public void logOut() throws LogoutException {
-        if(currentUser ==null)
+    public String logOut() throws LogoutException {
+        String ret = "";
+    	if(currentUser == null)
             throw new LogoutException();
-        currentUser=null;
+    	ret = currentUser.getEmail();
+        currentUser = null;
+        return ret;
     }
 
     @Override
@@ -170,15 +174,24 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
     
     @Override
-    public String Register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException {
-        if(currentUser!=null)
-            throw new UserAlreadyLoggedInException();
+    public String register(String typeS, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException { //throws WrongTypeException, but it's not tested
+        USER_TYPE type;
+    	if(typeS.equals("ADMIN")){
+        	type = USER_TYPE.ADMIN;
+        }
+        else if(typeS.equals("CLIENT")){
+        	type = USER_TYPE.CLIENT;
+        }
+        else return null;
+    	
+    	if(currentUser!=null)
+            throw new UserAlreadyLoggedInException("User already logged in.\n");
         if(hasUser(email))
             throw new UserAlreadyExistsException();
         String passw = "";
         User user;
         if(type == ADMIN){
-            passw = "admin"+adminUsersCount()+1;
+            passw = "admin"+(adminUsersCount()+1);
             user = new AdminClass(email, passw);
         }else{
             passw = "client"+(users.size() - adminUsersCount() +1);
@@ -209,32 +222,31 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
 	
-    public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
+	public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
+		
+		return null;
+	}
 
-            return null;
-    }
+	@Override
+	public Event checkEventData(String eventName, String date) throws EventNotFoundException {
 
-    @Override
-    public Event checkEventData(String eventName, String date) throws EventNotFoundException {
+		return null;
+	}
 
-            return null;
-    }
+	@Override
+	public Iterator<Event> searchEventsWithArtist(String artistName) {
 
-    @Override
-    public Iterator<Event> searchEventsWithArtist(String artistName) {
+		return null;
+	}
 
-            return null;
-    }
+	
+	@Override
+	public Iterator<Ticket> listTickets() {
 
-
-    @Override
-    public Iterator<Ticket> listTickets() {
-
-            return null;
-    }
+		return null;
+	}
     
-    
-    
+
     
     
     

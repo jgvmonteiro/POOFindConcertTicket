@@ -7,7 +7,7 @@ package concertTicker.exceptions;
  */
 public class ArtistAlreadyExistsException extends Exception{
     
-    private static final String DEFAULT_MESSAGE = "Artist name already exists.";
+    private static final String DEFAULT_MESSAGE = "Artist name already exists.\n";
 
     public ArtistAlreadyExistsException() {
         super(DEFAULT_MESSAGE);
