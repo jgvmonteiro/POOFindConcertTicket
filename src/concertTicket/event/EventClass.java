@@ -7,7 +7,7 @@ import java.time.LocalDate;
  *
  * @author Joao Monteiro
  */
-public abstract class EventClass implements Event{ //woops?!?!?
+public abstract class EventClass implements Event{ 
 
     private String description;
     private String name;
@@ -30,7 +30,7 @@ public abstract class EventClass implements Event{ //woops?!?!?
         return name;
     }
 
-    public int getAvailableTickets(){
+    public int availableTickets(){
     	return capacity - ticketsSold;
     }
     

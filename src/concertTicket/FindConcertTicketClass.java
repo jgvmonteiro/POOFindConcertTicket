@@ -44,14 +44,17 @@ import java.util.Map;
 public class FindConcertTicketClass implements FindConcertTicket {
 
     User currentUser;
-    List<Event> events;
-    List<Artist> artists;
-    List<User> users;
-
+    Map<String,Artist> artists;
+    Map<String,User> users;
+    List<Event> eventsList;
+    Map<String, List<Event>> artistEvents;
+    Map<LocalDate, Map<String,Event>> events;
+    
     public FindConcertTicketClass() {
-        this.events = new ArrayList();
-        this.artists = new ArrayList();
-        this.users = new ArrayList();
+        this.events = new HashMap<LocalDate, Map<String,Event>>();
+        this.artists = new HashMap<String,Artist>();
+        this.users = new HashMap<String,User>();
+        this.eventsList = new ArrayList<Event>();
         this.currentUser = null;
     }
 
@@ -59,108 +62,81 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void addArtist(String name, String[] listAlbuns) throws InvalidPrivilegeException, ArtistAlreadyExistsException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-        if (hasArtist(name)) 
+        if (artists.containsKey(name)) 
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
-        artists.add(artist);
+        artists.put(name, artist);
+        artistEvents.put(name, new ArrayList<Event>());
     }
 
     @Override
     public void addArtist(String name, String[] listAlbuns, String[] elements) throws InvalidPrivilegeException, ArtistAlreadyExistsException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-        if (hasArtist(name))
+        if (artists.containsKey(name))
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
-        artists.add(artist);
+        artists.put(name, artist);
+        artistEvents.put(name, new ArrayList<Event>());
     }
-
-    @Override
-    public boolean hasArtist(String name) {
-        try {
-            getArtist(name);
-            return true;
-        } catch (ArtistNotFoundException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public Artist getArtist(String name) throws ArtistNotFoundException {
-        for (Artist artist : artists) 
-            if (artist.getName().equalsIgnoreCase(name)) 
-                return artist;
-        throw new ArtistNotFoundException();
-    }
-    
     
 
     @Override
     public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-        
-        Artist artist = getArtist(artistName);
-        if(hasEvent(eventName, date))
+        if(!artists.containsKey(artistName))
+            throw new ArtistNotFoundException();
+        if(events.containsKey(date) && events.get(date).containsKey(eventName))
             throw new EventAlreadyExistsException();
-        
+        Artist artist = artists.get(artistName);
         Event e = new ConcertClass(eventName, artist, date, description, avaiableTickets, price);
-        events.add(e);
+        if(!events.containsKey(date))
+            events.put(date, new HashMap<String, Event>());
+        events.get(date).put(eventName, e);
+        artistEvents.get(artistName).add(e);
+        eventsList.add(e);
     }
 
     @Override
     public void addEvent(String eventName, String description, LocalDate startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
     	if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-        if(hasEvent(eventName, startDate))
+        if(events.containsKey(startDate) && events.get(startDate).containsKey(eventName))
             throw new EventAlreadyExistsException();
         Map<LocalDate, Artist[]> mapAlignemnt = new HashMap<LocalDate, Artist[]>();
         List<String> notFound = new ArrayList<String>();
+        Artist[] artists = null;
         for (int i = 0; i < aligment.length; i++) {
             LocalDate date = startDate.plusDays(i);
-            Artist[] artists = new Artist[aligment[i].length];
-            for (int j = 0; j < aligment[i].length; j++) {
-                if(!hasArtist(aligment[i][j]))
+            artists = new Artist[aligment[i].length];
+            for (int j = 0; j < aligment[i].length; j++) 
+                if(!this.artists.containsKey(aligment[i][j]))
                     notFound.add(aligment[i][j]);
                 else
-                    artists[j] = getArtist(aligment[i][j]);
-            }
+                    artists[j] = this.artists.get(aligment[i][j]);
             mapAlignemnt.put(date, artists);
         }
         if(notFound.size()>0)
             throw new ArtistNotFoundException((String[])notFound.toArray());
-        
-        //para verificar o artistdoesnotexist usamos uma linked list
         Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, aligment.length, tickets, price);
-        events.add(e);
-    }
-
-    @Override
-    public boolean hasEvent(String eventName, LocalDate startDate) {
-        try {
-            getEvent(eventName, startDate);
-            return true;
-        } catch (Exception e) {}
-        return false;
-    }
-
-    @Override
-    public Event getEvent(String eventName, LocalDate startDate) throws EventNotFoundException {
-    	for(Event e: events)
-            if(e.equals(eventName, startDate))
-                return e;
-        throw new EventNotFoundException();
+        if(!events.containsKey(startDate))
+            events.put(startDate, new HashMap<String, Event>());
+        events.get(startDate).put(eventName, e);
+        for(Artist artist : artists)
+            artistEvents.get(artist.getName()).add(e);
+        eventsList.add(e);
     }
 
     @Override
     public void buyTicket(String eventName, LocalDate startDate, int ticketCount)throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException{
         if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
-        
-        Concert e = (Concert)getEvent(eventName, startDate);
-        if(ticketCount > e.getAvailableTickets())
+        if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
+            throw new EventNotFoundException();
+        Concert e = (Concert)events.get(startDate).get(eventName);
+        if(ticketCount > e.availableTickets())
             throw new EventSoldOutException();
-        
         Ticket t = e.buyTickets(ticketCount);
         ((Client)currentUser).addTicket(t);
     }
@@ -169,8 +145,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void buyTicket(String eventName, LocalDate startDate, LocalDate[] dates) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException {
         if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
-        Festival e = (Festival)getEvent(eventName,startDate);
-        if(e.getAvailableTickets()==0)
+        if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
+            throw new EventNotFoundException();
+        Festival e = (Festival)events.get(startDate).get(eventName);
+        if(e.availableTickets()==0)
             throw new EventSoldOutException();  
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
@@ -178,7 +156,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public void logIn(String email, String password) throws UserNotFoundException, UserAlreadyLoggedInException, AnotherUserLoggedInException, WrongPasswordException {
-        User user = getUser(email);
+        if(!users.containsKey(email))
+            throw new UserNotFoundException();
+        User user = users.get(email);
         if(currentUser == user)
             throw new UserAlreadyLoggedInException();
         if(currentUser != null)
@@ -197,30 +177,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
         currentUser = null;
         return email;
     }
-
-    @Override
-    public User getUser(String email) throws UserNotFoundException {
-        for (User user : users)
-            if(user.getEmail().equalsIgnoreCase(email))
-                return user;
-        throw new UserNotFoundException();
-    }
-
-    @Override
-    public boolean hasUser(String email){
-        try {
-            getUser(email);
-            return true;
-        } catch (Exception e) {
-        }
-        return false;
-    }
     
     @Override
-    public String register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException { //throws WrongTypeException, but it's not tested    	
+    public String register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException {
     	if(currentUser!=null)
             throw new UserAlreadyLoggedInException();
-        if(hasUser(email))
+        if(users.containsKey(email))
             throw new UserAlreadyExistsException();
         String passw;
         User user;
@@ -231,13 +193,13 @@ public class FindConcertTicketClass implements FindConcertTicket {
             passw = "client"+(users.size() - adminUsersCount() +1);
             user = new ClientClass(email, passw);
         }
-        users.add(user);
+        users.put(email,user);
         return passw;
     }
     
     private int adminUsersCount(){
         int c = 0;
-        for(User user : users)
+        for(User user : users.values())
             if(user instanceof Admin)
                 c++;
         return c;
@@ -245,7 +207,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listAllEvents() {
-        return events.iterator();
+        return eventsList.iterator();
     }
 
     @Override
@@ -255,31 +217,32 @@ public class FindConcertTicketClass implements FindConcertTicket {
         
     }
 
-	
-	public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
-		
-		return null;
-	}
 
-	@Override
-	public Event checkEventData(String eventName, String date) throws EventNotFoundException {
+    @Override
+    public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
 
-		return null;
-	}
+            return null;
+    }
 
-	@Override
-	public Iterator<Event> searchEventsWithArtist(String artistName) {
+    @Override
+    public Event checkEventData(String eventName, String date) throws EventNotFoundException {
 
-		return null;
-	}
+            return null;
+    }
 
-	
-	@Override
-	public Iterator<Ticket> listTickets() {
-           List<Ticket> l =  ((Client)currentUser).myTickets();
-           l.sort(new TicketTypeComparator());
-           return l.iterator();
-	}
+    @Override
+    public Iterator<Event> searchEventsWithArtist(String artistName) {
+
+            return null;
+    }
+
+
+    @Override
+    public Iterator<Ticket> listTickets() {
+       List<Ticket> l =  ((Client)currentUser).myTickets();
+       l.sort(new TicketTypeComparator());
+       return l.iterator();
+    }
     
 
     

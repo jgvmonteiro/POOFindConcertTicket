@@ -13,7 +13,7 @@ public interface Event {
     
     String name();
     
-    int getAvailableTickets();
+    int availableTickets();
     
     void sellTickets(int amount);
     

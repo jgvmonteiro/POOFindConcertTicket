@@ -111,7 +111,15 @@ public class Main {
                 case CMD_LOGOUT:
                     logout(fct);
                     break;
+                case CMD_ADD_ARTIST:
+                    addArtist(fct, in);
+                    break;
                 case CMD_ADD_SHOW:
+                    addEvent(fct, in);
+                    break;
+                case CMD_MY_TICKETS:
+                    listTickets(fct, in);
+                    break;
                 default:
             }
             option = in.nextLine().toUpperCase();
@@ -280,6 +288,7 @@ public class Main {
         }    
     }
 
+   
     
     
 
