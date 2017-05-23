@@ -77,7 +77,8 @@ public class Main {
     //Exceptions
     private static final String EX_ANOTHER_USER_LOGGED_IN = "Another user is logged in.\n";
     private static final String EX_ARTIST_ALREADY_EXISTS = "Artist name already exists.\n";
-    private static final String EX_ARTIST_NOT_FOUND = "";
+    private static final String EX_ARTIST_NOT_FOUND_SINGLE = "Artist name does not exist.\n";
+    private static final String EX_ARTIST_NOT_FOUND_MULTIPLE = "Artist names do not exist.\n";
     private static final String EX_EVENT_ALREADY_EXISTS = "";
     private static final String EX_EVENT_NOT_FOUND = "Show does not exists.\n";
     private static final String EX_EVENT_SOLD_OUT = "There are not sufficient seats for the request.\n";
@@ -120,6 +121,9 @@ public class Main {
                 case CMD_MY_TICKETS:
                     listTickets(fct, in);
                     break;
+                case CMD_BUY_TICKET:
+                	buyTicket(fct, in);
+                	break;
                 default:
             }
             option = in.nextLine().toUpperCase();
@@ -231,7 +235,7 @@ public class Main {
             fct.addEvent(name, desc, startDate, alignment, tickets, prices);
         }
         }catch(ArtistNotFoundException e){
-            System.out.println(EX_ARTIST_NOT_FOUND);
+            handleArtistsNotFoundException(e);
         } catch (InvalidPrivilegeException e) {
             System.out.println(EX_INVALID_PRIVILEGE);
         } catch (EventAlreadyExistsException e) {
@@ -290,6 +294,15 @@ public class Main {
 
    
     
-    
+    private static void handleArtistsNotFoundException(ArtistNotFoundException e){
+    	String[] list = e.getArtistList();
+    	int listSize = list.length;
+    	if(listSize == 1)
+    		System.out.println(EX_ARTIST_NOT_FOUND_SINGLE);
+    	else System.out.println(EX_ARTIST_NOT_FOUND_MULTIPLE);
+    	
+    	for(int i = 0; i < listSize; i++)
+    		System.out.println(list[i]);
+    }
 
 }
