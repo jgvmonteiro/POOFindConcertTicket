@@ -95,9 +95,11 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
+        
         Artist artist = getArtist(artistName);
         if(hasEvent(eventName, date))
             throw new EventAlreadyExistsException();
+        
         Event e = new ConcertClass(eventName, artist, date, description, avaiableTickets, price);
         events.add(e);
     }
@@ -106,9 +108,11 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void addEvent(String eventName, String description, LocalDate startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
     	if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-        if(hasEvent(eventName, startDate)){
+    	
+        if(hasEvent(eventName, startDate))
             throw new EventAlreadyExistsException();
-        }	
+        
+        //para verificar o artistdoesnotexist usamos uma linked list
         //Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);
         //events.add(e);
     }

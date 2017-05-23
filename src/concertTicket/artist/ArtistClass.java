@@ -38,7 +38,14 @@ public class ArtistClass implements Artist{
     	return albumList;
     }
     
-    
+    public boolean equals(Object other){
+    	if(other == null) return false;
+    	if(this == other) return true;
+    	
+    	if(!(other instanceof Artist)) return false;
+    	if(((Artist) other).getName().equals(this.getName())) return true;
+    	return false;
+    }
     
     
 }
