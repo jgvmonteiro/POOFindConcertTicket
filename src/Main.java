@@ -90,7 +90,6 @@ public class Main {
     private static final String EX_UNKNOWN = "Unknown exception occured.\n";
 
     public static void main(String[] args) {
-        System.out.println("ola");
     	interpreter();
 
     }
