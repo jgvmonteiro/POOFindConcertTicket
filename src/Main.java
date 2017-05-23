@@ -69,7 +69,7 @@ public class Main {
     private static final String SYS_ARTIST_SEARCH_CONCERTS = "Concerts of %s\n"; //artist name
     private static final String SYS_ARTIST_SEARCH_FESTIVALS = "Festivals where %s will play:\n"; //artist name
     private static final String SYS_USER_REGISTER_SUCCESS = "User was registered: %s\n\n"; //user password
-    private static final String SYS_CONCERT_OR_FESTIVAL = "CONCERT OR FESTIVAL?\n";
+    private static final String SYS_CONCERT_OR_FESTIVAL = "CONCERT OR FESTIVAL?";
     private static final String SYS_ARTIST_ADDED_SUCCESS = "Artist added.\n";
     private static final String SYS_SHOW_ADDED_SUCCESS = "Show added.\n";
     private static final String SYS_TICKET_BUY_SUCCESS = "Ticket bought with cost %d.\n\n"; //ticket price
@@ -84,7 +84,7 @@ public class Main {
     private static final String EX_ARTIST_NOT_FOUND_SINGLE = "Artist name does not exist.\n";
     private static final String EX_ARTIST_NOT_FOUND_MULTIPLE = "Artist names do not exist.\n";
     private static final String EX_EVENT_ALREADY_EXISTS = "";
-    private static final String EX_EVENT_NOT_FOUND = "Show does not exists.\n";
+    private static final String EX_EVENT_NOT_FOUND = "Show does not exist.\n";
     private static final String EX_EVENT_SOLD_OUT = "There are not sufficient seats for the request.\n";
     private static final String EX_INVALID_PRIVILEGE = "User cannot execute this command.\n";
     private static final String EX_LOGOUT = "No user is logged in.\n";
@@ -127,6 +127,9 @@ public class Main {
                     break;
                 case CMD_BUY_TICKET:
                 	buyTicket(fct, in);
+                	break;
+                case CMD_SHOWS:
+                	listAll(fct, in);
                 	break;
                 default:
             }
@@ -312,7 +315,7 @@ public class Main {
 
     private static void listAll(FindConcertTicket fct, Scanner in){
        
-       System.out.println("All shows:");
+       System.out.println(SYS_ALL_SHOWS_LIST_HEADER);
        Iterator<Event> it = fct.listAllEvents();
        while(it.hasNext()){
            Event e = it.next();

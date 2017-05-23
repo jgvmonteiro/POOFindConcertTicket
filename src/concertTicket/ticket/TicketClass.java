@@ -29,6 +29,7 @@ public abstract class TicketClass implements Ticket{
     }
     
     
+    
     public int compareTo(Ticket t){
     	return 0;
     }

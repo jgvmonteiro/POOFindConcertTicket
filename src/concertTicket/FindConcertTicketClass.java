@@ -80,7 +80,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
         artists.put(name, artist);
         artistEvents.put(name, new ArrayList<Event>());
     }
-    
 
     @Override
     public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
@@ -150,8 +149,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Festival e = (Festival)events.get(startDate).get(eventName);
-        if(e.availableTickets()==0)
-            throw new EventSoldOutException();  
+        if(e.availableTickets()<=0)
+            throw new EventSoldOutException();
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
         return t.totalPrice();
