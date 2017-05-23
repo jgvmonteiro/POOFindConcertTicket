@@ -27,10 +27,12 @@ import concertTicket.artist.Artist;
 import concertTicket.artist.BandClass;
 import concertTicket.artist.ArtistClass;
 import static concertTicket.FindConcertTicket.USER_TYPE.*;
+import concertTicket.event.FestivalClass;
 import concertTicket.ticket.TicketTypeComparator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -110,13 +112,27 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void addEvent(String eventName, String description, LocalDate startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
     	if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-    	
         if(hasEvent(eventName, startDate))
             throw new EventAlreadyExistsException();
+        Map<LocalDate, Artist[]> mapAlignemnt = new HashMap<LocalDate, Artist[]>();
+        List<String> notFound = new ArrayList<String>();
+        for (int i = 0; i < aligment.length; i++) {
+            LocalDate date = startDate.plusDays(i);
+            Artist[] artists = new Artist[aligment[i].length];
+            for (int j = 0; j < aligment[i].length; j++) {
+                if(!hasArtist(aligment[i][j]))
+                    notFound.add(aligment[i][j]);
+                else
+                    artists[j] = getArtist(aligment[i][j]);
+            }
+            mapAlignemnt.put(date, artists);
+        }
+        if(notFound.size()>0)
+            throw new ArtistNotFoundException((String[])notFound.toArray());
         
         //para verificar o artistdoesnotexist usamos uma linked list
-        //Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);
-        //events.add(e);
+        Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, aligment.length, tickets, price);
+        events.add(e);
     }
 
     @Override
