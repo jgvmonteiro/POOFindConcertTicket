@@ -1,23 +1,26 @@
 
+import concertTicket.FindConcertTicketClass;
+import concertTicket.FindConcertTicket;
 import java.util.Scanner;
 
-import concertTicker.FindConcertTicket.*;
-import concertTicker.*;
-import concertTicker.exceptions.AnotherUserLoggedInException;
-import concertTicker.exceptions.ArtistAlreadyExistsException;
-import concertTicker.exceptions.ArtistNotFoundException;
-import concertTicker.exceptions.EventAlreadyExistsException;
-import concertTicker.exceptions.EventNotFoundException;
-import concertTicker.exceptions.EventSoldOutException;
-import concertTicker.exceptions.InvalidPrivilegeException;
-import concertTicker.exceptions.LogoutException;
-import concertTicker.exceptions.UserAlreadyExistsException;
-import concertTicker.exceptions.UserAlreadyLoggedInException;
-import concertTicker.exceptions.UserNotFoundException;
-import concertTicker.exceptions.WrongPasswordException;
+import concertTicket.FindConcertTicket.*;
+import concertTicket.exceptions.AnotherUserLoggedInException;
+import concertTicket.exceptions.ArtistAlreadyExistsException;
+import concertTicket.exceptions.ArtistNotFoundException;
+import concertTicket.exceptions.EventAlreadyExistsException;
+import concertTicket.exceptions.EventNotFoundException;
+import concertTicket.exceptions.EventSoldOutException;
+import concertTicket.exceptions.InvalidPrivilegeException;
+import concertTicket.exceptions.LogoutException;
+import concertTicket.exceptions.UserAlreadyExistsException;
+import concertTicket.exceptions.UserAlreadyLoggedInException;
+import concertTicket.exceptions.UserNotFoundException;
+import concertTicket.exceptions.WrongPasswordException;
+import concertTicket.ticket.Ticket;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -252,6 +255,15 @@ public class Main {
         
     }
 
+    
+    private static void listTickets(FindConcertTicket fct, Scanner in){
+        Iterator<Ticket> it = fct.listTickets();
+        System.out.println("My Tickets:");
+        while(it.hasNext())
+            System.out.println(it.next());
+        
+        
+    }
 
     
     
