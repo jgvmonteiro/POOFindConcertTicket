@@ -7,7 +7,7 @@ import concertTicket.event.Event;
  *
  * @author Joao Monteiro
  */
-public interface Ticket {
+public interface Ticket extends Comparable<Ticket> {
 
     String eventName();
     int totalPrice();
