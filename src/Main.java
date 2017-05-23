@@ -16,6 +16,8 @@ import concertTicket.exceptions.UserAlreadyExistsException;
 import concertTicket.exceptions.UserAlreadyLoggedInException;
 import concertTicket.exceptions.UserNotFoundException;
 import concertTicket.exceptions.WrongPasswordException;
+import concertTicket.ticket.ConcertTicket;
+import concertTicket.ticket.FestivalTicket;
 import concertTicket.ticket.Ticket;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -260,8 +262,24 @@ public class Main {
     private static void listTickets(FindConcertTicket fct, Scanner in){
         Iterator<Ticket> it = fct.listTickets();
         System.out.println("My Tickets:");
-        while(it.hasNext())
-            System.out.println(it.next());
+        while(it.hasNext()){
+            Ticket ticket = it.next();
+            if(ticket instanceof ConcertTicket){
+                ConcertTicket ct = (ConcertTicket)ticket;
+                System.out.println(ct.eventName());
+                System.out.println(ct.startDate().toString());
+                System.out.println(ct.numberTickets());
+                System.out.println(ct.totalPrice());
+            }else{
+                FestivalTicket ft = (FestivalTicket)ticket;
+                LocalDate[] dates = ft.dates();
+                for(LocalDate date:dates)
+                    System.out.println(date.toString());
+                System.out.println(ft.totalPrice());
+            }
+        
+            
+        }
         
         
     }
