@@ -81,7 +81,7 @@ public interface FindConcertTicket {
      * @throws EventAlreadyExistsException the event already exists in the collection
      * @throws ArtistNotFoundException given artist name not found
      */
-    void addEvent(String eventName, String artistName, String description, String date, int availableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
+    void addEvent(String eventName, String artistName, String description, LocalDate date, int availableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
     
     /**
      * Adds new festival type event to the collection
@@ -95,7 +95,7 @@ public interface FindConcertTicket {
      * @throws EventAlreadyExistsException the event already exists in the collection
      * @throws ArtistNotFoundException ArtistNotFoundException given artist name not found
      */
-    void addEvent(String eventName, String description, String startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
+    void addEvent(String eventName, String description, LocalDate startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
    
     /**
      * Check if event exists in the collection

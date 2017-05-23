@@ -92,24 +92,21 @@ public class FindConcertTicketClass implements FindConcertTicket {
     
 
     @Override
-    public void addEvent(String eventName, String artistName, String description, String date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
+    public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
         Artist artist = getArtist(artistName);
-        LocalDate lDate = LocalDate.parse(date);
-        if(hasEvent(eventName, lDate))
+        if(hasEvent(eventName, date))
             throw new EventAlreadyExistsException();
-        Event e = new ConcertClass(eventName, artist, LocalDate.parse(date), description, avaiableTickets, price);
+        Event e = new ConcertClass(eventName, artist, date, description, avaiableTickets, price);
         events.add(e);
     }
 
     @Override
-    public void addEvent(String eventName, String description, String startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
+    public void addEvent(String eventName, String description, LocalDate startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
     	if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-       
-        LocalDate date = LocalDate.parse(startDate);
-        if(hasEvent(eventName, date)){
+        if(hasEvent(eventName, startDate)){
             throw new EventAlreadyExistsException();
         }	
         //Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);

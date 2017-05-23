@@ -196,13 +196,13 @@ public class Main {
         String resp = in.nextLine();
         if(resp.equalsIgnoreCase(CMD_CONCERT)){
             String artist_name = in.nextLine();
-            String date = in.nextLine();
+            LocalDate date = LocalDate.parse(in.nextLine());
             int price = Integer.parseInt(in.nextLine());
             fct.addEvent(name, artist_name, desc, date,tickets, price);
        
         }else{
             int duration = Integer.parseInt(in.nextLine());
-            String startDate = in.nextLine();
+            LocalDate startDate = LocalDate.parse(in.nextLine());
             String[][] alignment = new String[duration][];
             for(int i=0; i<duration;i++){
                 int n = Integer.parseInt(in.nextLine());
