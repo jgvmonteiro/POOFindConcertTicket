@@ -232,8 +232,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Event checkEventData(String eventName, String date) throws EventNotFoundException {
-
-            return null;
+        Event e = events.get(date).get(eventName);
+        if(e==null)
+            throw new EventNotFoundException();
+        return e;
     }
 
     @Override

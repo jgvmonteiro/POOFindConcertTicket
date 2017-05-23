@@ -135,7 +135,11 @@ public class Main {
                 case CMD_SHOWS:
                 	listAll(fct, in);
                 	break;
+                case CMD_SHOW:
+                    searchEvent(fct, in);
+                    break;
                 default:
+                    break;
             }
             option = in.nextLine().toUpperCase();
         }
@@ -223,8 +227,7 @@ public class Main {
             String artist_name = in.nextLine();
             LocalDate date = LocalDate.parse(in.nextLine());
             int price = Integer.parseInt(in.nextLine());
-            fct.addEvent(name, artist_name, desc, date,tickets, price);
-       
+            fct.addEvent(name, artist_name, desc, date,tickets, price);      
         }else{
             int duration = Integer.parseInt(in.nextLine());
             LocalDate startDate = LocalDate.parse(in.nextLine());
@@ -267,23 +270,23 @@ public class Main {
     
     private static void buyTicket(FindConcertTicket fct, Scanner in){
         try{
-        int price = 0;
-        String name = in.nextLine();
-        LocalDate date = LocalDate.parse(in.nextLine());
-        System.out.println(SYS_CONCERT_OR_FESTIVAL);
-        String resp = in.nextLine();
-        if(resp.equalsIgnoreCase(CMD_CONCERT)){
-            int n_tickets = Integer.parseInt(in.nextLine());
-            price = fct.buyTicket(name, date, n_tickets);
-        }else{
-            int n_days = Integer.parseInt(in.nextLine());
-            LocalDate[] dates = new LocalDate[n_days];
-            for (int i = 0; i < n_days; i++) {
-                dates[i] = LocalDate.parse(in.nextLine());
+            int price = 0;
+            String name = in.nextLine();
+            LocalDate date = LocalDate.parse(in.nextLine());
+            System.out.println(SYS_CONCERT_OR_FESTIVAL);
+            String resp = in.nextLine();
+            if(resp.equalsIgnoreCase(CMD_CONCERT)){
+                int n_tickets = Integer.parseInt(in.nextLine());
+                price = fct.buyTicket(name, date, n_tickets);
+            }else{
+                int n_days = Integer.parseInt(in.nextLine());
+                LocalDate[] dates = new LocalDate[n_days];
+                for (int i = 0; i < n_days; i++) {
+                    dates[i] = LocalDate.parse(in.nextLine());
+                }
+                price = fct.buyTicket(name, date, dates);
             }
-            price = fct.buyTicket(name, date, dates);
-        }
-        System.out.printf(SYS_TICKET_BUY_SUCCESS, price);
+            System.out.printf(SYS_TICKET_BUY_SUCCESS, price);
         }catch(EventNotFoundException e){
             System.out.println(EX_EVENT_NOT_FOUND);
         } catch (InvalidPrivilegeException e) {
@@ -334,7 +337,7 @@ public class Main {
                Festival fe = (Festival)e; 
                System.out.println(fe.name());
                System.out.println(fe.startDate());
-               
+               System.out.println("NAO ESTA FEITO AINDA");
            
            }
        }
@@ -352,13 +355,36 @@ public class Main {
                 System.out.println(c.price());
                 System.out.println(c.availableTickets());
             } else {
-
+                System.out.println("NAO ESTA FEITO AINDA");
             }
         } catch (UnknownEventTypeException e) {
             
         }
     }
     
+    
+    private static void searchEvent(FindConcertTicket fct, Scanner in){        
+        try {
+            String name = in.nextLine();
+            LocalDate date = LocalDate.parse(in.nextLine());
+            Event e = fct.checkEventData(name, name);
+            System.out.println(e.name()+" on "+date+":" );
+            if(e instanceof Concert){
+                Concert c = (Concert)e;
+                System.out.println(c.name());
+                System.out.println(c.artist());
+                System.out.println(c.date().toString());
+                System.out.println(c.price());
+                System.out.println(c.availableTickets());
+            }else{
+                System.out.println("NAO ESTA FEITO AINDA");
+            }
+            
+        } catch (EventNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
   
 
     
