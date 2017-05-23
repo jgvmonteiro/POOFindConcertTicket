@@ -97,7 +97,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         FindConcertTicket fct = new FindConcertTicketClass();
 
-        String option = in.next().toUpperCase(); in.nextLine();
+        String option = in.nextLine().toUpperCase();
         while (!option.equals(CMD_EXIT)) {
             switch (option) {
                 case CMD_REGISTER:
@@ -111,7 +111,7 @@ public class Main {
 
                 default:
             }
-            option = in.next().toUpperCase(); in.nextLine();
+            option = in.nextLine().toUpperCase();
         }
         System.out.println(SYS_EXIST_MESSAGE);
     }
