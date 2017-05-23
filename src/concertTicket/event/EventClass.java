@@ -7,7 +7,7 @@ import java.time.LocalDate;
  *
  * @author Joao Monteiro
  */
-public abstract class EventClass implements Event{
+public abstract class EventClass implements Event{ //woops?!?!?
 
     private String description;
     private String name;
