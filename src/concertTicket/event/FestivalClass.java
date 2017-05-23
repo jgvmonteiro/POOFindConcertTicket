@@ -3,6 +3,7 @@ package concertTicket.event;
 
 import concertTicket.artist.Artist;
 import concertTicket.ticket.FestivalTicket;
+import concertTicket.ticket.FestivalTicketClass;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -29,24 +30,23 @@ public class FestivalClass extends EventClass implements Festival{
 
     @Override
     public LocalDate startDate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return startDate;
     }
 
     @Override
-    public int price(int[] days) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int price(int days) {
+        return prices[days-1];
     }
 
     @Override
     public int avaiableTickets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return availableTickets;
     }
 
     @Override
     public FestivalTicket buyTicket(String[] dates) {
-        
-        
-        return null;
+        availableTickets-= dates.length; //Verificar se as datas existem???
+        return new FestivalTicketClass(name, dates, prices[dates.length-1]);
     }
     
     
