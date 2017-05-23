@@ -14,6 +14,7 @@ public class ArtistNotFoundException extends Exception{
     }
 
     public ArtistNotFoundException(String artistList[]){
+    	super();
     	this.artistList = artistList;
     }
     
