@@ -149,7 +149,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Festival e = (Festival)events.get(startDate).get(eventName);
-        if(e.availableTickets()<=0)
+        if(dates.length > e.availableTickets())
             throw new EventSoldOutException();
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
