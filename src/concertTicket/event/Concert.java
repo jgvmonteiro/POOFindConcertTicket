@@ -17,7 +17,6 @@ public interface Concert extends Event{
     int availableTickets();
     ConcertTicket buyTickets(int amount);
     int price();
-    boolean equals(Event event);
     
     
     

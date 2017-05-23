@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public interface Festival extends Event{
 
     LocalDate startDate();
-    int price(int[] days);
+    int price(int days);
     int avaiableTickets();
     FestivalTicket buyTicket(String[] dates);
-    boolean equals(Event event);
+
 }
