@@ -2,6 +2,7 @@
 package concertTicket.users;
 
 import concertTicket.event.Event;
+import concertTicket.ticket.Ticket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,21 +13,21 @@ import java.util.List;
  */
 public class ClientClass extends UserClass implements Client{
 
-    List<Event> myEvents;
+    List<Ticket> myTickets;
     
     public ClientClass(String email, String password) {
         super(email, password);
-        myEvents = new ArrayList();
+        myTickets = new ArrayList();
     }
 
     @Override
-    public void addEvent(Event event) {
-        myEvents.add(event);
+    public void addTicket(Ticket event) {
+        myTickets.add(event);
     }
 
     @Override
-    public Iterator<Event> myEventsIterator() {
-        return myEvents.iterator();
+    public List<Ticket> myTickets() {
+        return myTickets;
     }
 
     

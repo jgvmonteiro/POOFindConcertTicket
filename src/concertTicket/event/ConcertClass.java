@@ -44,7 +44,7 @@ public class ConcertClass extends EventClass implements Concert{
     @Override
     public ConcertTicket buyTickets(int amount) {
        avaiableTickets -= amount;
-       return new ConcertTicketClass(name, amount, price);
+       return new ConcertTicketClass(name, date, amount, price);
     }
     
 
