@@ -13,6 +13,9 @@ public interface Event {
     
     String name();
     
+    int getAvailableTickets();
+    
+    void sellTickets(int amount);
     
     
     boolean equals(Event event);

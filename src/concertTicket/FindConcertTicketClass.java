@@ -158,7 +158,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new InvalidPrivilegeException();
         
         Concert e = (Concert)getEvent(eventName, startDate);
-        if(ticketCount > e.availableTickets())
+        if(ticketCount > e.getAvailableTickets())
             throw new EventSoldOutException();
         
         Ticket t = e.buyTickets(ticketCount);
@@ -170,7 +170,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
         Festival e = (Festival)getEvent(eventName,startDate);
-        if(e.avaiableTickets()==0)
+        if(e.getAvailableTickets()==0)
             throw new EventSoldOutException();  
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
