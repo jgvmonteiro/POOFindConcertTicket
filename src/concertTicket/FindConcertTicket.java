@@ -55,21 +55,6 @@ public interface FindConcertTicket {
     void addArtist(String name, String[] listAlbuns, String[] elements) throws InvalidPrivilegeException, ArtistAlreadyExistsException;
     
     /**
-     * Check if artist exist in the collection
-     * @param name artist name to verify
-     * @return true if exists, false otherwise
-     */
-    boolean hasArtist(String name);
-    
-    /**
-     * Search the collection for the specified artist name
-     * @param name artist name to search
-     * @return Artist object of the given name
-     * @throws ArtistNotFoundException artist given name not found in the collection
-     */
-    Artist getArtist(String name) throws ArtistNotFoundException;
-    
-    /**
      * Adds new concert type event to the collection
      * @param eventName concert's event name
      * @param artistName artist name to perform in this event
@@ -97,21 +82,6 @@ public interface FindConcertTicket {
      */
     void addEvent(String eventName, String description, LocalDate startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException;
    
-    /**
-     * Check if event exists in the collection
-     * @param eventName event's name to verify
-     * @return true if event exists, false otherwise
-     */
-    boolean hasEvent(String eventName, LocalDate startDate);
-    
-    /**
-     * Searches events collection for the specified event name
-     * @param eventName event name to search
-     * @return Event object of the given name
-     * @throws EventNotFoundException event name not found in the collection
-     */
-    Event getEvent(String eventName, LocalDate startDate) throws EventNotFoundException;
-    
     //////////////////////////CLIENT
     
     /**
@@ -162,21 +132,6 @@ public interface FindConcertTicket {
      * @throws LogoutException if no one is logged in
      */
     String logOut() throws LogoutException;
- 
-    /**
-     * Check if user exists in the system
-     * @param email user's email to verify
-     * @return true if user exists, false otherwise
-     */
-    boolean hasUser(String email);
-    
-    /**
-     * Searches for a user in the collection
-     * @param email user email to search
-     * @return User object of the given email
-     * @throws UserNotFoundException no user with the given email found in the collection
-     */
-    User getUser(String email) throws UserNotFoundException;
 
 
     /////////////////// ALL USERS
