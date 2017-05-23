@@ -91,14 +91,13 @@ public class Main {
 
     public static void main(String[] args) {
     	interpreter();
-
     }
 
     private static void interpreter() {
         Scanner in = new Scanner(System.in);
         FindConcertTicket fct = new FindConcertTicketClass();
 
-        String option = in.next().toUpperCase();
+        String option = in.next().toUpperCase(); in.nextLine();
         while (!option.equals(CMD_EXIT)) {
             switch (option) {
                 case CMD_REGISTER:
@@ -112,7 +111,7 @@ public class Main {
 
                 default:
             }
-            option = in.next().toUpperCase();
+            option = in.next().toUpperCase(); in.nextLine();
         }
         System.out.println(SYS_EXIST_MESSAGE);
     }
