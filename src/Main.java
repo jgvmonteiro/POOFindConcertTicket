@@ -318,13 +318,12 @@ public class Main {
                System.out.println(ce.artist().getName());
                System.out.println(ce.date());
                System.out.println(ce.price());
-               System.out.println(ce.availableTickets());
-               
+               System.out.println(ce.availableTickets());      
            }else{
                Festival fe = (Festival)e; 
                System.out.println(fe.name());
                System.out.println(fe.startDate());
-               System.out.println("");
+               
            
            }
        }
