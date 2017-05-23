@@ -221,8 +221,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
-
-            return null;
+        if(type.equalsIgnoreCase(EVENT_TYPE_CONCERT))
+            return new IteratorByType(eventsList, Concert.class);
+        else if(type.equalsIgnoreCase(EVENT_TYPE_FESTIVAL))
+            return new IteratorByType(eventsList, Festival.class);
+        else
+            throw new UnknownEventTypeException();
     }
 
     @Override

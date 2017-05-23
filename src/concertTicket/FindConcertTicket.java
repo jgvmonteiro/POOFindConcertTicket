@@ -32,6 +32,9 @@ public interface FindConcertTicket {
         ADMIN, CLIENT
     }
     
+     String EVENT_TYPE_CONCERT = "CONCERT";
+     String EVENT_TYPE_FESTIVAL= "FESTIVAL";
+    
     
     ///////////////////////////ADMIN
     
