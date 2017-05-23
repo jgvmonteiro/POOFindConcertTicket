@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -70,27 +71,25 @@ public class FindConcertTicketClass implements FindConcertTicket {
     
 
     @Override
-    public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
+    public void addEvent(String eventName, String artistName, String description, String date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
         Artist artist = getArtist(artistName);
         if(hasEvent(eventName))
             throw new EventAlreadyExistsException();
-        Event e = new ConcertClass(eventName, artist, date, description, avaiableTickets, price);
+        Event e = new ConcertClass(eventName, artist, LocalDate.parse(date), description, avaiableTickets, price);
         events.add(e);
     }
 
     @Override
-    public void addEvent(String eventName, String[] artistsName, int days, LocalDate startDate, String description, int[] avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
+    public void addEvent(String eventName, String description, String startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
-        Artist[] artists = new Artist[days];
-        for(int i=0; i<days;i++)
-            artists[i] = getArtist(artistsName[i]);
+       
         if(hasEvent(eventName))
             throw new EventAlreadyExistsException();   
-        Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);
-        events.add(e);
+        //Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);
+        //events.add(e);
     }
 
     @Override

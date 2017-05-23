@@ -5,12 +5,19 @@ import concertTicker.FindConcertTicket.*;
 import concertTicker.*;
 import concertTicker.exceptions.AnotherUserLoggedInException;
 import concertTicker.exceptions.ArtistAlreadyExistsException;
+import concertTicker.exceptions.ArtistNotFoundException;
+import concertTicker.exceptions.EventAlreadyExistsException;
 import concertTicker.exceptions.InvalidPrivilegeException;
 import concertTicker.exceptions.LogoutException;
 import concertTicker.exceptions.UserAlreadyExistsException;
 import concertTicker.exceptions.UserAlreadyLoggedInException;
 import concertTicker.exceptions.UserNotFoundException;
 import concertTicker.exceptions.WrongPasswordException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +45,10 @@ public class Main {
     //clients
     private static final String CMD_BUY_TICKET = "BUYTICKET";
     private static final String CMD_MY_TICKETS = "MYTICKETS";
+
+    //other commands
+    private static final String CMD_CONCERT = "CONCERT";
+    private static final String CMD_ADMIN = "ADMIN";
 
     //system messages
     private static final String SYS_EXIST_MESSAGE = "Exiting.\n";
@@ -106,7 +117,7 @@ public class Main {
             String typeStr = in.next().toUpperCase();
             String email = in.next();
             USER_TYPE type;
-            if (typeStr == "ADMIN") {
+            if (typeStr.equals(CMD_ADMIN)) {
                 type = USER_TYPE.ADMIN;
             } else {
                 type = USER_TYPE.CLIENT;
@@ -172,7 +183,48 @@ public class Main {
         }
     }
     
-    
+    private static void addEvent(FindConcertTicket fct, Scanner in){     
+        try{String name = in.nextLine();
+        String desc = in.nextLine();
+        int tickets = Integer.parseInt(in.nextLine());
+        System.out.println(SYS_CONCERT_OR_FESTIVAL);
+        String resp = in.nextLine();
+        if(resp.equalsIgnoreCase(CMD_CONCERT)){
+            String artist_name = in.nextLine();
+            String date = in.nextLine();
+            int price = Integer.parseInt(in.nextLine());
+            fct.addEvent(name, artist_name, desc, date,tickets, price);
+        }else{
+            int duration = Integer.parseInt(in.nextLine());
+            String startDate = in.nextLine();
+            String[][] alignment = new String[duration][];
+            for(int i=0; i<duration;i++){
+                int n = Integer.parseInt(in.nextLine());
+                String[] artists = new String[n];
+                for(int j=0; j<n;j++){
+                    artists[j] = in.nextLine();
+                }
+                alignment[i] = artists;
+            }
+            
+            int[] prices = new int[duration];
+            for(int i=0; i<duration;i++){
+                in.next();
+                prices[i] = in.nextInt();
+                in.nextLine();
+            }
+            fct.addEvent(name, desc, startDate, alignment, tickets, prices);
+        }
+       
+        }catch(ArtistNotFoundException e){
+            System.out.println(EX_ARTIST_NOT_FOUND);
+        } catch (InvalidPrivilegeException e) {
+            System.out.println(EX_INVALID_PRIVILEGE);
+        } catch (EventAlreadyExistsException e) {
+            System.out.println(EX_EVENT_ALREADY_EXISTS);
+        }
+    }
+
 
     
     
