@@ -319,7 +319,7 @@ public class Main {
        }
    }
     
-    private static void handleArtistsNotFoundException(ArtistNotFoundException e){
+    private static void handleArtistsNotFoundException(ArtistNotFoundException e){ //ola
     	String[] list = e.getArtistList();
     	int listSize = list.length;
     	if(listSize == 1)
