@@ -10,7 +10,6 @@ import concertTicket.event.Event;
 public abstract class TicketClass implements Ticket{
     
     String eventName;
-    String code; ////??????????
     int totalPrice;
     
     public TicketClass(String eventName, int totalPrice) {
@@ -23,10 +22,6 @@ public abstract class TicketClass implements Ticket{
         return eventName;
     }
 
-    @Override
-    public String getBarCode() {
-        return code;
-    }
 
     @Override
     public int totalPrice() {
