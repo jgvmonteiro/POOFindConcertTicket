@@ -15,5 +15,6 @@ public interface Festival extends Event{
     int price(int days);
     int avaiableTickets();
     FestivalTicket buyTicket(LocalDate[] dates);
+    String[][] getAlignmentStr();
 
 }
