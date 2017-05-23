@@ -27,8 +27,10 @@ import concertTicket.artist.Artist;
 import concertTicket.artist.BandClass;
 import concertTicket.artist.ArtistClass;
 import static concertTicket.FindConcertTicket.USER_TYPE.*;
+import concertTicket.ticket.TicketTypeComparator;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -139,8 +141,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(ticketCount > e.availableTickets())
             throw new EventSoldOutException();
         
-        e.buyTickets(ticketCount);
-        ((Client)currentUser).addEvent(e);
+        Ticket t = e.buyTickets(ticketCount);
+        ((Client)currentUser).addTicket(t);
     }
 
     @Override
@@ -150,8 +152,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         Festival e = (Festival)getEvent(eventName,startDate);
         if(e.avaiableTickets()==0)
             throw new EventSoldOutException();  
-         e.buyTicket(dates);
-        ((Client)currentUser).addEvent(e);
+         Ticket t = e.buyTicket(dates);
+        ((Client)currentUser).addTicket(t);
     }
 
     @Override
@@ -254,7 +256,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
 	
 	@Override
 	public Iterator<Ticket> listTickets() {
-		return null;
+           List<Ticket> l =  ((Client)currentUser).myTickets();
+           l.sort(new TicketTypeComparator());
+           return l.iterator();
 	}
     
 

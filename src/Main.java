@@ -277,11 +277,7 @@ public class Main {
                     System.out.println(date.toString());
                 System.out.println(ft.totalPrice());
             }
-        
-            
-        }
-        
-        
+        }    
     }
 
     
