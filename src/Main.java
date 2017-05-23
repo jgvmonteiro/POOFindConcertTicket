@@ -323,7 +323,7 @@ public class Main {
        Iterator<Event> it = fct.listAllEvents();
        while(it.hasNext()){
            Event e = it.next();
-           if(e instanceof ConcertTicket){
+           if(e instanceof Concert){
                Concert ce = (Concert)e;
                System.out.println(ce.name());
                System.out.println(ce.artist().getName());
