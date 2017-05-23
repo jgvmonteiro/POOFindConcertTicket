@@ -44,19 +44,6 @@ public class FestivalClass extends EventClass implements Festival{
         return new FestivalTicketClass(name(), dates, prices[dates.length-1]);
     }
 
-    @Override
-    public String[][] getAlignmentStr() {
-        String[][] r = new String[alignemnt.size()][];
-        int i =0; int j = 0;
-        for(LocalDate date : alignemnt.keySet()){
-            String[] artists = new String[alignemnt.get(date).length];
-            for (Artist artist: alignemnt.get(date)) {
-                artists[j++] = artist.getName();
-            }
-            
-        }
-        return null;
-    }
     
     
 

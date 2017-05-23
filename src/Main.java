@@ -15,6 +15,7 @@ import concertTicket.exceptions.EventNotFoundException;
 import concertTicket.exceptions.EventSoldOutException;
 import concertTicket.exceptions.InvalidPrivilegeException;
 import concertTicket.exceptions.LogoutException;
+import concertTicket.exceptions.UnknownEventTypeException;
 import concertTicket.exceptions.UserAlreadyExistsException;
 import concertTicket.exceptions.UserAlreadyLoggedInException;
 import concertTicket.exceptions.UserNotFoundException;
@@ -126,8 +127,11 @@ public class Main {
                     listTickets(fct, in);
                     break;
                 case CMD_BUY_TICKET:
-                	buyTicket(fct, in);
-                	break;
+                    buyTicket(fct, in);
+                    break;
+                case CMD_SHOWS_BY_TYPE:
+                    listByType(fct, in);
+                    break;
                 case CMD_SHOWS:
                 	listAll(fct, in);
                 	break;
@@ -325,18 +329,37 @@ public class Main {
                System.out.println(ce.artist().getName());
                System.out.println(ce.date());
                System.out.println(ce.price());
-               System.out.println(ce.availableTickets());
-               
+               System.out.println(ce.availableTickets());      
            }else{
                Festival fe = (Festival)e; 
                System.out.println(fe.name());
                System.out.println(fe.startDate());
-               System.out.println("");
+               
            
            }
        }
    }
     
+    private static void listByType(FindConcertTicket fct, Scanner in) {
+        try {
+            String type = in.nextLine();
+            if (type.equalsIgnoreCase(FindConcertTicket.EVENT_TYPE_CONCERT)) {
+                Iterator<Event> it = fct.listEventsByType(type);
+                Concert c = (Concert)it.next();
+                System.out.println(c.name());
+                System.out.println(c.artist());
+                System.out.println(c.date().toString());
+                System.out.println(c.price());
+                System.out.println(c.availableTickets());
+            } else {
+
+            }
+        } catch (UnknownEventTypeException e) {
+            
+        }
+    }
+    
+  
 
     
     
