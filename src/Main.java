@@ -246,6 +246,16 @@ public class Main {
         }
     }
     
+    private static void handleArtistsNotFoundException(ArtistNotFoundException e){ //ola
+    	String[] list = e.getArtistList();
+    	if(list.length == 1)
+    		System.out.println(EX_ARTIST_NOT_FOUND_SINGLE);
+    	else System.out.println(EX_ARTIST_NOT_FOUND_MULTIPLE);
+    	
+    	for(int i = 0; i < list.length; i++)
+    		System.out.println(list[i]);
+    }
+    
     private static void buyTicket(FindConcertTicket fct, Scanner in){
         try{
         String name = in.nextLine();
@@ -295,7 +305,7 @@ public class Main {
         }    
     }
 
-   private static void listAll(FindConcertTicket fct, Scanner in){
+    private static void listAll(FindConcertTicket fct, Scanner in){
        
        System.out.println("All shows:");
        Iterator<Event> it = fct.listAllEvents();
@@ -319,15 +329,6 @@ public class Main {
        }
    }
     
-    private static void handleArtistsNotFoundException(ArtistNotFoundException e){ //ola
-    	String[] list = e.getArtistList();
-    	int listSize = list.length;
-    	if(listSize == 1)
-    		System.out.println(EX_ARTIST_NOT_FOUND_SINGLE);
-    	else System.out.println(EX_ARTIST_NOT_FOUND_MULTIPLE);
-    	
-    	for(int i = 0; i < listSize; i++)
-    		System.out.println(list[i]);
-    }
+  
 
 }
