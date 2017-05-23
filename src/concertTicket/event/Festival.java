@@ -13,7 +13,6 @@ public interface Festival extends Event{
 
     LocalDate startDate();
     int price(int days);
-    int avaiableTickets();
     FestivalTicket buyTicket(LocalDate[] dates);
     String[][] getAlignmentStr();
 

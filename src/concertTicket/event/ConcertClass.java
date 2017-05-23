@@ -14,14 +14,12 @@ public class ConcertClass extends EventClass implements Concert{
     
     private Artist artist;
     private LocalDate date;
-    private int avaiableTickets;
     private int price;
 
-    public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int avaiableTickets, int price) {
-        super(eventName, description);
+    public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int availableTickets, int price) {
+        super(eventName, description, availableTickets);
         this.artist = artist;
         this.date = date;
-        this.avaiableTickets = avaiableTickets;
         this.price = price;
     }
     
@@ -36,15 +34,11 @@ public class ConcertClass extends EventClass implements Concert{
         return date;
     }
 
-    @Override
-    public int availableTickets() {
-        return avaiableTickets;
-    }
 
     @Override
     public ConcertTicket buyTickets(int amount) {
-       avaiableTickets -= amount;
-       return new ConcertTicketClass(name, date, amount, price);
+       sellTickets(amount);
+       return new ConcertTicketClass(name(), date, amount, price);
     }
     
 
@@ -62,6 +56,9 @@ public class ConcertClass extends EventClass implements Concert{
         }
         return false;
     }
+
+
+	
 
     
     

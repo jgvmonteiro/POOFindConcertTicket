@@ -14,7 +14,6 @@ public interface Concert extends Event{
     Artist artist();
     LocalDate date();
     String description();
-    int availableTickets();
     ConcertTicket buyTickets(int amount);
     int price();
     

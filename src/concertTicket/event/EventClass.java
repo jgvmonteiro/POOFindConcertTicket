@@ -7,16 +7,17 @@ import java.time.LocalDate;
  *
  * @author Joao Monteiro
  */
-public class EventClass implements Event{
+public abstract class EventClass implements Event{ 
 
-    String description;
-    String name;
-
+    private String description;
+    private String name;
+    private int ticketsSold, capacity;
     
-    public EventClass(String eventName, String description) {
+    public EventClass(String eventName, String description, int availableTickets) {
         this.description = description;
         this.name = eventName;
-
+        this.capacity = availableTickets;
+        this.ticketsSold = 0;
     }
 
     @Override
@@ -29,7 +30,13 @@ public class EventClass implements Event{
         return name;
     }
 
+    public int availableTickets(){
+    	return capacity - ticketsSold;
+    }
     
+    public void sellTickets(int amount){
+    	ticketsSold += amount;
+    }
     
     
     @Override

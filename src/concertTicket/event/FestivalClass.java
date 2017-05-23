@@ -14,16 +14,15 @@ import java.util.Map;
 public class FestivalClass extends EventClass implements Festival{
 
     private Map<LocalDate,Artist[]> alignemnt;
-    private int duration, availableTickets;
+    private int duration;
     private int[] prices;  
     private LocalDate startDate;
     
-    public FestivalClass(String name, String description, Map<LocalDate,Artist[]> alignment, LocalDate startDate, int duration, int avaiableTickets, int[] prices) {
-        super(name, description);
+    public FestivalClass(String name, String description, Map<LocalDate,Artist[]> alignment, LocalDate startDate, int duration, int availableTickets, int[] prices) {
+        super(name, description, availableTickets);
         this.duration = duration;
         this.prices = prices;
         this.startDate = startDate;
-        this.availableTickets = avaiableTickets;
     }
 
     
@@ -38,15 +37,11 @@ public class FestivalClass extends EventClass implements Festival{
         return prices[days-1];
     }
 
-    @Override
-    public int avaiableTickets() {
-        return availableTickets;
-    }
 
     @Override
     public FestivalTicket buyTicket(LocalDate[] dates) {
-        availableTickets-= dates.length; //Verificar se as datas existem???
-        return new FestivalTicketClass(name, dates, prices[dates.length-1]);
+        sellTickets(dates.length); //Verificar se as datas existem???
+        return new FestivalTicketClass(name(), dates, prices[dates.length-1]);
     }
 
     @Override
