@@ -7,9 +7,17 @@ package concertTicket.exceptions;
  */
 public class ArtistNotFoundException extends Exception{
 
+	String artistList[];
+	
     public ArtistNotFoundException() {
         super();
     }
 
+    public ArtistNotFoundException(String artistList[]){
+    	this.artistList = artistList;
+    }
     
+    public String[] getArtistList(){
+    	return this.artistList;
+    }
 }
