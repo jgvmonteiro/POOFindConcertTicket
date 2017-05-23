@@ -7,7 +7,7 @@ import concertTicket.event.Event;
  *
  * @author Joao Monteiro
  */
-public abstract class TicketClass implements Ticket{
+public abstract class TicketClass implements Ticket, Comparable<Ticket>{
     
     String eventName;
     int totalPrice;
