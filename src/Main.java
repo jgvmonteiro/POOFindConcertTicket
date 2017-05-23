@@ -237,6 +237,7 @@ public class Main {
             }
             fct.addEvent(name, desc, startDate, alignment, tickets, prices);
         }
+        System.out.println(SYS_SHOW_ADDED_SUCCESS);
         }catch(ArtistNotFoundException e){
             handleArtistsNotFoundException(e);
         } catch (InvalidPrivilegeException e) {

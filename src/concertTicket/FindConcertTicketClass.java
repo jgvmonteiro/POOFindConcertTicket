@@ -56,6 +56,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.users = new HashMap<String,User>();
         this.eventsList = new ArrayList<Event>();
         this.currentUser = null;
+        this.artistEvents = new HashMap<String, List<Event>>();
     }
 
     @Override
