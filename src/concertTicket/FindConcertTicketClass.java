@@ -96,7 +96,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
         Artist artist = getArtist(artistName);
-        if(hasEvent(eventName))
+        LocalDate lDate = LocalDate.parse(date);
+        if(hasEvent(eventName, lDate))
             throw new EventAlreadyExistsException();
         Event e = new ConcertClass(eventName, artist, LocalDate.parse(date), description, avaiableTickets, price);
         events.add(e);
@@ -104,28 +105,30 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public void addEvent(String eventName, String description, String startDate,  String[][] aligment, int tickets, int[] price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException{
-        if (!(currentUser instanceof Admin)) 
+    	if (!(currentUser instanceof Admin)) 
             throw new InvalidPrivilegeException();
        
-        if(hasEvent(eventName))
-            throw new EventAlreadyExistsException();   
+        LocalDate date = LocalDate.parse(startDate);
+        if(hasEvent(eventName, date)){
+            throw new EventAlreadyExistsException();
+        }	
         //Event e = new FestivalClass(eventName, description, artists, startDate, days, avaiableTickets, price);
         //events.add(e);
     }
 
     @Override
-    public boolean hasEvent(String eventName) {
+    public boolean hasEvent(String eventName, LocalDate startDate) {
         try {
-            getEvent(eventName);
+            getEvent(eventName, startDate);
             return true;
         } catch (Exception e) {}
         return false;
     }
 
     @Override
-    public Event getEvent(String eventName) throws EventNotFoundException {
-        for(Event e: events)
-            if(e.equals(eventName))
+    public Event getEvent(String eventName, LocalDate startDate) throws EventNotFoundException {
+    	for(Event e: events)
+            if(e.equals(eventName, startDate))
                 return e;
         throw new EventNotFoundException();
     }
@@ -134,9 +137,11 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void buyTicket(String eventName, LocalDate startDate, int ticketCount)throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException{
         if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
-        Concert e = (Concert)getEvent(eventName);
+        
+        Concert e = (Concert)getEvent(eventName, startDate);
         if(ticketCount > e.availableTickets())
             throw new EventSoldOutException();
+        
         e.buyTickets(ticketCount);
         ((Client)currentUser).addEvent(e);
     }
@@ -145,7 +150,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     public void buyTicket(String eventName, LocalDate startDate, LocalDate[] dates) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException {
         if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
-        Festival e = (Festival)getEvent(eventName);
+        Festival e = (Festival)getEvent(eventName,startDate);
         if(e.avaiableTickets()==0)
             throw new EventSoldOutException();  
          e.buyTicket(dates);

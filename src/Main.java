@@ -108,7 +108,8 @@ public class Main {
                     break;
                 case CMD_LOGOUT:
                     logout(fct);
-
+                    break;
+                case CMD_ADD_SHOW:
                 default:
             }
             option = in.nextLine().toUpperCase();
@@ -198,6 +199,7 @@ public class Main {
             String date = in.nextLine();
             int price = Integer.parseInt(in.nextLine());
             fct.addEvent(name, artist_name, desc, date,tickets, price);
+       
         }else{
             int duration = Integer.parseInt(in.nextLine());
             String startDate = in.nextLine();

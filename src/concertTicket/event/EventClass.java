@@ -1,6 +1,8 @@
 
 package concertTicket.event;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Joao Monteiro
@@ -43,8 +45,8 @@ public class EventClass implements Event{
     }
 
     @Override
-    public boolean equals(String name) {
-        return (this.name.equalsIgnoreCase(name));
+    public boolean equals(String name, LocalDate startDate){
+    	return (this.name.equals(name) && startDate.isEqual(startDate));
     }
     
     
