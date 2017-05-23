@@ -25,7 +25,7 @@ public abstract class TicketClass implements Ticket{
 
     @Override
     public int totalPrice() {
-        return 0;
+        return totalPrice;
     }
     
     

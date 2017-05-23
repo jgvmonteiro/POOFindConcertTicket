@@ -230,7 +230,7 @@ public class Main {
     private static void buyTicket(FindConcertTicket fct, Scanner in){
         try{
         String name = in.nextLine();
-        String date = in.nextLine();
+        LocalDate date = LocalDate.parse(in.nextLine());
         System.out.println(SYS_CONCERT_OR_FESTIVAL);
         String resp = in.nextLine();
         if(resp.equalsIgnoreCase(CMD_CONCERT)){
@@ -238,9 +238,9 @@ public class Main {
             fct.buyTicket(name, date, n_tickets);
         }else{
             int n_days = Integer.parseInt(in.nextLine());
-            String[] dates = new String[n_days];
+            LocalDate[] dates = new LocalDate[n_days];
             for (int i = 0; i < n_days; i++) {
-                dates[i] = in.nextLine();
+                dates[i] = LocalDate.parse(in.nextLine());
             }
             fct.buyTicket(name, date, dates);
         }

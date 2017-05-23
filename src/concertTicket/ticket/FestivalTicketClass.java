@@ -10,15 +10,15 @@ import java.time.LocalDate;
  */
 public class FestivalTicketClass extends TicketClass implements FestivalTicket{
 
-    String[] dates;
+    LocalDate[] dates;
     
-    public FestivalTicketClass(String eventName, String[] dates, int totalPrice) {
+    public FestivalTicketClass(String eventName, LocalDate[] dates, int totalPrice) {
         super(eventName,totalPrice);
         this.dates = dates;
     }
 
     @Override
-    public String[] dates() {
+    public LocalDate[] dates() {
         return dates;
     }
 

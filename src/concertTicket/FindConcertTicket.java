@@ -123,7 +123,7 @@ public interface FindConcertTicket {
      * @throws EventNotFoundException event name not found in the collection
      * @throws EventSoldOutException event has less available tickets than the <var>ticketCount</var> amount supplied
      */
-    void buyTicket(String eventName, String startDate, int ticketCount) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException;
+    void buyTicket(String eventName, LocalDate startDate, int ticketCount) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException;
     
     /**
      * Buys ticket for a festival event
@@ -134,7 +134,7 @@ public interface FindConcertTicket {
      * @throws EventNotFoundException
      * @throws EventSoldOutException 
      */
-    void buyTicket(String eventName, String startDate, String[] dates) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException;
+    void buyTicket(String eventName, LocalDate startDate, LocalDate[] dates) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException;
     
     /**
      * To list all tickets owned by a specific user. Tickets are ordered by purchase date, from oldest to most recent.

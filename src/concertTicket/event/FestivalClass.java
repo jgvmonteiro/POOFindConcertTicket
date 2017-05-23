@@ -44,7 +44,7 @@ public class FestivalClass extends EventClass implements Festival{
     }
 
     @Override
-    public FestivalTicket buyTicket(String[] dates) {
+    public FestivalTicket buyTicket(LocalDate[] dates) {
         availableTickets-= dates.length; //Verificar se as datas existem???
         return new FestivalTicketClass(name, dates, prices[dates.length-1]);
     }
