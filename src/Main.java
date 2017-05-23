@@ -4,6 +4,9 @@ import concertTicket.FindConcertTicket;
 import java.util.Scanner;
 
 import concertTicket.FindConcertTicket.*;
+import concertTicket.event.Concert;
+import concertTicket.event.Event;
+import concertTicket.event.Festival;
 import concertTicket.exceptions.AnotherUserLoggedInException;
 import concertTicket.exceptions.ArtistAlreadyExistsException;
 import concertTicket.exceptions.ArtistNotFoundException;
@@ -292,7 +295,29 @@ public class Main {
         }    
     }
 
-   
+   private static void listAll(FindConcertTicket fct, Scanner in){
+       
+       System.out.println("All shows:");
+       Iterator<Event> it = fct.listAllEvents();
+       while(it.hasNext()){
+           Event e = it.next();
+           if(e instanceof ConcertTicket){
+               Concert ce = (Concert)e;
+               System.out.println(ce.name());
+               System.out.println(ce.artist().getName());
+               System.out.println(ce.date());
+               System.out.println(ce.price());
+               System.out.println(ce.availableTickets());
+               
+           }else{
+               Festival fe = (Festival)e; 
+               System.out.println(fe.name());
+               System.out.println(fe.startDate());
+               System.out.println("");
+           
+           }
+       }
+   }
     
     private static void handleArtistsNotFoundException(ArtistNotFoundException e){
     	String[] list = e.getArtistList();
