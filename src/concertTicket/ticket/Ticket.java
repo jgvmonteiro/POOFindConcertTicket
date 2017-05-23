@@ -10,7 +10,6 @@ import concertTicket.event.Event;
 public interface Ticket {
 
     String eventName();
-    String getBarCode();
     int totalPrice();
     
     
