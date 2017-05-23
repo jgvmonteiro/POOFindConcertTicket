@@ -72,10 +72,11 @@ public class Main {
     private static final String SYS_CONCERT_OR_FESTIVAL = "CONCERT OR FESTIVAL?\n";
     private static final String SYS_ARTIST_ADDED_SUCCESS = "Artist added.\n";
     private static final String SYS_SHOW_ADDED_SUCCESS = "Show added.\n";
-    private static final String SYS_TICKET_BUY_SUCCESS = "Ticket bought with cost: %d"; //ticket price
+    private static final String SYS_TICKET_BUY_SUCCESS = "Ticket bought with cost %d.\n\n"; //ticket price
     private static final String SYS_USER_TICKET_LIST = "My Tickets:\n";
     private static final String SYS_LOGIN_SUCCESS = "Welcome %s\n\n"; //user email
     private static final String SYS_LOGOUT_SUCCESS = "Goodbye %s\n\n"; //user email
+    private static final String SYS_TICKET_LIST_HEADER = "My tickets:\n";
 
     //Exceptions
     private static final String EX_ANOTHER_USER_LOGGED_IN = "Another user is logged in.\n";
@@ -259,21 +260,23 @@ public class Main {
     
     private static void buyTicket(FindConcertTicket fct, Scanner in){
         try{
+        int price = 0;
         String name = in.nextLine();
         LocalDate date = LocalDate.parse(in.nextLine());
         System.out.println(SYS_CONCERT_OR_FESTIVAL);
         String resp = in.nextLine();
         if(resp.equalsIgnoreCase(CMD_CONCERT)){
             int n_tickets = Integer.parseInt(in.nextLine());
-            fct.buyTicket(name, date, n_tickets);
+            price = fct.buyTicket(name, date, n_tickets);
         }else{
             int n_days = Integer.parseInt(in.nextLine());
             LocalDate[] dates = new LocalDate[n_days];
             for (int i = 0; i < n_days; i++) {
                 dates[i] = LocalDate.parse(in.nextLine());
             }
-            fct.buyTicket(name, date, dates);
+            price = fct.buyTicket(name, date, dates);
         }
+        System.out.printf(SYS_TICKET_BUY_SUCCESS, price);
         }catch(EventNotFoundException e){
             System.out.println(EX_EVENT_NOT_FOUND);
         } catch (InvalidPrivilegeException e) {
@@ -283,11 +286,10 @@ public class Main {
         }
         
     }
-
-    
+ 
     private static void listTickets(FindConcertTicket fct, Scanner in){
         Iterator<Ticket> it = fct.listTickets();
-        System.out.println("My Tickets:");
+        System.out.println(SYS_TICKET_LIST_HEADER);
         while(it.hasNext()){
             Ticket ticket = it.next();
             if(ticket instanceof ConcertTicket){
@@ -299,10 +301,12 @@ public class Main {
             }else{
                 FestivalTicket ft = (FestivalTicket)ticket;
                 LocalDate[] dates = ft.dates();
+                System.out.println(ft.eventName());
                 for(LocalDate date:dates)
                     System.out.println(date.toString());
                 System.out.println(ft.totalPrice());
             }
+            System.out.println();
         }    
     }
 
@@ -330,6 +334,8 @@ public class Main {
        }
    }
     
-  
 
+    
+    
+    
 }

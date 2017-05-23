@@ -130,8 +130,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public void buyTicket(String eventName, LocalDate startDate, int ticketCount)throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException{
-        if (!(currentUser instanceof Client)) 
+    public int buyTicket(String eventName, LocalDate startDate, int ticketCount)throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException{
+    	if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
@@ -140,10 +140,11 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new EventSoldOutException();
         Ticket t = e.buyTickets(ticketCount);
         ((Client)currentUser).addTicket(t);
+        return t.totalPrice();
     }
 
     @Override
-    public void buyTicket(String eventName, LocalDate startDate, LocalDate[] dates) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException {
+    public int buyTicket(String eventName, LocalDate startDate, LocalDate[] dates) throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException {
         if (!(currentUser instanceof Client)) 
             throw new InvalidPrivilegeException();
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
@@ -153,6 +154,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new EventSoldOutException();  
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
+        return t.totalPrice();
     }
 
     @Override
