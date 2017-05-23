@@ -1,6 +1,8 @@
 
 package concertTicket.event;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Joao Monteiro
@@ -14,6 +16,6 @@ public interface Event {
     
     
     boolean equals(Event event);
-    
-    boolean equals(String name);
+        
+    boolean equals(String name, LocalDate startDate);
 }

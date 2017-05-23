@@ -102,7 +102,7 @@ public interface FindConcertTicket {
      * @param eventName event's name to verify
      * @return true if event exists, false otherwise
      */
-    boolean hasEvent(String eventName);
+    boolean hasEvent(String eventName, LocalDate startDate);
     
     /**
      * Searches events collection for the specified event name
@@ -110,7 +110,7 @@ public interface FindConcertTicket {
      * @return Event object of the given name
      * @throws EventNotFoundException event name not found in the collection
      */
-    Event getEvent(String eventName) throws EventNotFoundException;
+    Event getEvent(String eventName, LocalDate startDate) throws EventNotFoundException;
     
     //////////////////////////CLIENT
     

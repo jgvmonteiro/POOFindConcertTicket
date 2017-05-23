@@ -64,5 +64,4 @@ public class FestivalClass extends EventClass implements Festival{
     
     
     
-    
 }
