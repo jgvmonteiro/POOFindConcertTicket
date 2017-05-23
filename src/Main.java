@@ -7,6 +7,8 @@ import concertTicker.exceptions.AnotherUserLoggedInException;
 import concertTicker.exceptions.ArtistAlreadyExistsException;
 import concertTicker.exceptions.ArtistNotFoundException;
 import concertTicker.exceptions.EventAlreadyExistsException;
+import concertTicker.exceptions.EventNotFoundException;
+import concertTicker.exceptions.EventSoldOutException;
 import concertTicker.exceptions.InvalidPrivilegeException;
 import concertTicker.exceptions.LogoutException;
 import concertTicker.exceptions.UserAlreadyExistsException;
@@ -205,8 +207,7 @@ public class Main {
                     artists[j] = in.nextLine();
                 }
                 alignment[i] = artists;
-            }
-            
+            }   
             int[] prices = new int[duration];
             for(int i=0; i<duration;i++){
                 in.next();
@@ -215,7 +216,6 @@ public class Main {
             }
             fct.addEvent(name, desc, startDate, alignment, tickets, prices);
         }
-       
         }catch(ArtistNotFoundException e){
             System.out.println(EX_ARTIST_NOT_FOUND);
         } catch (InvalidPrivilegeException e) {
@@ -223,6 +223,33 @@ public class Main {
         } catch (EventAlreadyExistsException e) {
             System.out.println(EX_EVENT_ALREADY_EXISTS);
         }
+    }
+    
+    private static void buyTicket(FindConcertTicket fct, Scanner in){
+        try{
+        String name = in.nextLine();
+        String date = in.nextLine();
+        System.out.println(SYS_CONCERT_OR_FESTIVAL);
+        String resp = in.nextLine();
+        if(resp.equalsIgnoreCase(CMD_CONCERT)){
+            int n_tickets = Integer.parseInt(in.nextLine());
+            fct.buyTicket(name, date, n_tickets);
+        }else{
+            int n_days = Integer.parseInt(in.nextLine());
+            String[] dates = new String[n_days];
+            for (int i = 0; i < n_days; i++) {
+                dates[i] = in.nextLine();
+            }
+            fct.buyTicket(name, date, dates);
+        }
+        }catch(EventNotFoundException e){
+            System.out.println(EX_EVENT_NOT_FOUND);
+        } catch (InvalidPrivilegeException e) {
+            System.out.println(EX_INVALID_PRIVILEGE);
+        } catch (EventSoldOutException e) {
+            System.out.println(EX_EVENT_SOLD_OUT);
+        }
+        
     }
 
 
