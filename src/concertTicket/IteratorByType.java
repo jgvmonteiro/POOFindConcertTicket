@@ -17,6 +17,7 @@ public class IteratorByType implements Iterator<Event> {
 
     public IteratorByType(List<Event> list, Class TYPE) {
         this.list = list;
+        this.type = TYPE;
         it = list.listIterator();
         searchNext();
     }
