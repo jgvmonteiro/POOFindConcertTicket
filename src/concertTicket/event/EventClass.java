@@ -13,7 +13,7 @@ public abstract class EventClass implements Event{
     private String name;
     LocalDate startDate;
     
-    public EventClass(String eventName, String description, LocalDate startDate, int availableTickets) {
+    public EventClass(String eventName, String description, LocalDate startDate) {
         this.description = description;
         this.name = eventName;
         this.startDate = startDate;
@@ -34,8 +34,6 @@ public abstract class EventClass implements Event{
         return startDate;
     }
     
-    
-
     
     @Override
     public boolean equals(Event event) {

@@ -1,31 +1,10 @@
 package concertTicket;
 
-import concertTicket.event.Festival;
-import concertTicket.event.Event;
-import concertTicket.event.ConcertClass;
-import concertTicket.event.Concert;
-import concertTicket.exceptions.ArtistAlreadyExistsException;
-import concertTicket.exceptions.UserAlreadyLoggedInException;
-import concertTicket.exceptions.WrongPasswordException;
-import concertTicket.exceptions.EventSoldOutException;
-import concertTicket.exceptions.EventNotFoundException;
-import concertTicket.exceptions.UserNotFoundException;
-import concertTicket.exceptions.UnknownEventTypeException;
-import concertTicket.exceptions.UserAlreadyExistsException;
-import concertTicket.exceptions.ArtistNotFoundException;
-import concertTicket.exceptions.EventAlreadyExistsException;
-import concertTicket.exceptions.LogoutException;
-import concertTicket.exceptions.InvalidPrivilegeException;
-import concertTicket.exceptions.AnotherUserLoggedInException;
-import concertTicket.users.Client;
-import concertTicket.users.Admin;
-import concertTicket.users.AdminClass;
-import concertTicket.users.ClientClass;
-import concertTicket.users.User;
-import concertTicket.ticket.Ticket;
-import concertTicket.artist.Artist;
-import concertTicket.artist.BandClass;
-import concertTicket.artist.ArtistClass;
+import concertTicket.event.*;
+import concertTicket.exceptions.*;
+import concertTicket.users.*;
+import concertTicket.ticket.*;
+import concertTicket.artist.*;
 import static concertTicket.FindConcertTicket.USER_TYPE.*;
 import concertTicket.event.FestivalClass;
 import concertTicket.ticket.TicketTypeComparator;
@@ -47,7 +26,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     Map<String,Artist> artists;
     Map<String,User> users;
     List<Event> eventsList;
-    Map<String, List<Event>> artistEvents;
+    Map<String, Map<String, List<Event>>> artistEvents;
     Map<LocalDate, Map<String,Event>> events;
     
     public FindConcertTicketClass() {
@@ -56,7 +35,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.users = new HashMap<String,User>();
         this.eventsList = new ArrayList<Event>();
         this.currentUser = null;
-        this.artistEvents = new HashMap<String, List<Event>>();
+        this.artistEvents = new HashMap<String, Map<String, List<Event>>>();
+        
     }
 
     @Override
@@ -67,7 +47,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
         artists.put(name, artist);
-        artistEvents.put(name, new ArrayList<Event>());
+        addArtist(name);
     }
 
     @Override
@@ -78,7 +58,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
         artists.put(name, artist);
-        artistEvents.put(name, new ArrayList<Event>());
+        addArtist(name);
+    }
+    
+    private void addArtist(String name){
+        artistEvents.put(name, new HashMap<String, List<Event>>());
+        artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
     }
 
     @Override
@@ -94,7 +79,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(date))
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
-        artistEvents.get(artistName).add(e);
+        artistEvents.get(artistName).get(EVENT_TYPE_CONCERT).add(e);
         eventsList.add(e);
     }
 
@@ -119,12 +104,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
         }
         if(notFound.size()>0)
             throw new ArtistNotFoundException((String[])notFound.toArray());
-        Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, aligment.length, tickets, price);
+        Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, tickets, price);
         if(!events.containsKey(startDate))
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
         for(Artist artist : artists)
-            artistEvents.get(artist.getName()).add(e);
+            artistEvents.get(artist.getName()).get(EVENT_TYPE_CONCERT).add(e);
         eventsList.add(e);
     }
 
@@ -135,8 +120,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Concert e = (Concert)events.get(startDate).get(eventName);
-        if(ticketCount > e.availableTickets())
-            throw new EventSoldOutException();
         Ticket t = e.buyTickets(ticketCount);
         ((Client)currentUser).addTicket(t);
         return t.totalPrice();
@@ -149,8 +132,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Festival e = (Festival)events.get(startDate).get(eventName);
-        if(dates.length > e.availableTickets())
-            throw new EventSoldOutException();
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
         return t.totalPrice();
@@ -209,6 +190,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listAllEvents() {
+        
         return eventsList.iterator();
     }
 
@@ -239,9 +221,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public Iterator<Event> searchEventsWithArtist(String artistName) {
-
-            return null;
+    public ArtistEventIterator searchEventsWithArtist(String artistName) {
+      return new ArtistIterator(artistEvents.get(artistName));
     }
 
 

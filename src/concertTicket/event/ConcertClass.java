@@ -2,6 +2,7 @@
 package concertTicket.event;
 
 import concertTicket.artist.Artist;
+import concertTicket.exceptions.EventSoldOutException;
 import concertTicket.ticket.ConcertTicket;
 import concertTicket.ticket.ConcertTicketClass;
 import java.time.LocalDate;
@@ -14,22 +15,17 @@ public class ConcertClass extends EventClass implements Concert{
     
     private Artist artist;
     private int price;
-    int ticketsSold, capacity;
+    int soldTickets, capacity;
 
     
-    public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int availableTickets, int price) {
-        super(eventName, description, date,  availableTickets);
+    public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int capacity, int price) {
+        super(eventName, description, date);
         this.artist = artist;
         this.price = price;
-        this.capacity = availableTickets;
-        this.ticketsSold = 0;
+        this.capacity = capacity;
+        this.soldTickets = 0;
 
     }
-    
-    public void sellTickets(int amount){
-    	ticketsSold += amount;
-    }
-
 
     @Override
     public Artist artist() {
@@ -37,13 +33,16 @@ public class ConcertClass extends EventClass implements Concert{
     }
 
     @Override
-    public ConcertTicket buyTickets(int amount) {
-       sellTickets(amount);
+    public ConcertTicket buyTickets(int amount) throws EventSoldOutException{
+       if(availableTickets()>0)
+           soldTickets+=amount;
+       else
+           throw new EventSoldOutException();
        return new ConcertTicketClass(name(), startDate(), amount, price);
     }
     
     public int availableTickets(){
-    	return capacity - ticketsSold;
+    	return capacity - soldTickets;
     }
 
     @Override
