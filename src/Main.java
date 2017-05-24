@@ -330,7 +330,7 @@ public class Main {
                Concert ce = (Concert)e;
                System.out.println(ce.name());
                System.out.println(ce.artist().getName());
-               System.out.println(ce.date());
+               System.out.println(ce.startDate());
                System.out.println(ce.price());
                System.out.println(ce.availableTickets());      
            }else{
@@ -351,7 +351,7 @@ public class Main {
                 Concert c = (Concert)it.next();
                 System.out.println(c.name());
                 System.out.println(c.artist());
-                System.out.println(c.date().toString());
+                System.out.println(c.startDate().toString());
                 System.out.println(c.price());
                 System.out.println(c.availableTickets());
             } else {
@@ -373,7 +373,7 @@ public class Main {
                 Concert c = (Concert)e;
                 System.out.println(c.name());
                 System.out.println(c.artist());
-                System.out.println(c.date().toString());
+                System.out.println(c.startDate().toString());
                 System.out.println(c.price());
                 System.out.println(c.availableTickets());
             }else{
