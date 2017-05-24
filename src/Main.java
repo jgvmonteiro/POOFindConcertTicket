@@ -384,7 +384,7 @@ public class Main {
         try {
             String name = in.nextLine();
             LocalDate date = LocalDate.parse(in.nextLine());
-            Event e = fct.checkEventData(name, name);
+            Event e = fct.checkEventData(name, date);
             System.out.println(e.name()+" on "+date.toString()+":" );
             printEventData(e);
             

@@ -33,7 +33,7 @@ public class FestivalIteratorClass implements FestivalDataIterator{
     @Override
     public LocalDate nextDate() {
         artist_index=0;
-        artistArray = artists.next();//Allways exists some artist for each day...
+        artistArray = artists.next();//Always exists some artist for each day...
         return dates.next();
     }
 
