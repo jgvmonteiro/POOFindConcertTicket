@@ -387,7 +387,7 @@ public class Main {
             Event e = fct.checkEventData(name, date);
             System.out.println(e.name()+" on "+date.toString()+":" );
             printEventData(e);
-            
+            System.out.println();
         } catch (EventNotFoundException ex) {
             //Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         	System.out.println(EX_EVENT_NOT_FOUND);
