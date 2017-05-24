@@ -393,10 +393,10 @@ public class Main {
     private static void searchArtistEvents(FindConcertTicket fct, Scanner in){      
         String artistName = in.nextLine();
         ArtistEventIterator it = fct.searchEventsWithArtist(artistName);
-        System.out.printf("Concerts of %s:\n", artistName);
+        System.out.printf(SYS_ARTIST_SEARCH_CONCERTS, artistName);
         while(it.hasNextConcert())
             printEventData(it.nextConcert());
-        System.out.printf("Festivals where %s will play:\n", artistName);
+        System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
         while(it.hasNextFestival())
             printEventData(it.nextFestival());
  
