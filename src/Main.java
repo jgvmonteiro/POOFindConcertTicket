@@ -376,7 +376,7 @@ public class Main {
                 while(it.hasNext())
                     printEventData(it.next());
         } catch (UnknownEventTypeException e) {
-            
+            System.out.println("tipo errado...");
         }
     }
     
