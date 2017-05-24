@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -89,7 +90,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new InvalidPrivilegeException();
         if(events.containsKey(startDate) && events.get(startDate).containsKey(eventName))
             throw new EventAlreadyExistsException();
-        Map<LocalDate, Artist[]> mapAlignemnt = new HashMap<LocalDate, Artist[]>();
+        Map<LocalDate, Artist[]> mapAlignemnt = new TreeMap<LocalDate, Artist[]>();
         List<String> notFound = new ArrayList<String>();
         Artist[] artists = null;
         for (int i = 0; i < aligment.length; i++) {
