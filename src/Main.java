@@ -141,6 +141,9 @@ public class Main {
                 case CMD_SHOW:
                     searchEvent(fct, in);
                     break;
+                case CMD_SEARCH:
+                	searchArtistEvents(fct, in);
+                	break;
                 default:
                     break;
             }
@@ -386,7 +389,8 @@ public class Main {
             printEventData(e);
             
         } catch (EventNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        	System.out.println(EX_EVENT_NOT_FOUND);
         }
     }
     

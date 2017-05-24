@@ -6,7 +6,7 @@ import concertTicket.users.*;
 import concertTicket.ticket.*;
 import concertTicket.artist.*;
 import static concertTicket.FindConcertTicket.USER_TYPE.*;
-import concertTicket.event.FestivalClass;
+
 import concertTicket.ticket.TicketTypeComparator;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -214,9 +214,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Event checkEventData(String eventName, String date) throws EventNotFoundException {
-        Event e = events.get(date).get(eventName);
-        if(e==null)
+        Map<String, Event> h = events.get(date);
+        if(h == null)
             throw new EventNotFoundException();
+        Event e = h.get(eventName);
+        if(e == null)
+        	throw new EventNotFoundException();
         return e;
     }
 
