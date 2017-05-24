@@ -179,7 +179,7 @@ public interface FindConcertTicket {
      * @return event whose data will be checked
      * @throws EventNotFoundException if event doesn't exist
      */
-    Event checkEventData(String eventName, String date) throws EventNotFoundException;
+    Event checkEventData(String eventName, LocalDate date) throws EventNotFoundException;
     
     /**
      * To list event in which an individual artist (not band member) will play
