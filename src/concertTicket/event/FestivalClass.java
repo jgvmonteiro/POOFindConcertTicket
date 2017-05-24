@@ -22,6 +22,7 @@ public class FestivalClass extends EventClass implements Festival{
     
     public FestivalClass(String name, String description, Map<LocalDate,Artist[]> alignment, LocalDate startDate, int capacity, int[] prices) {
         super(name, description, startDate);
+        this.alignemnt = alignment;
         this.prices = prices;
         this.capacityPERday = capacity;
         this.soldTickets = new HashMap<LocalDate, Integer>(alignment.size());
