@@ -50,6 +50,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         artists.put(name, artist);
         artistEvents.put(name, new HashMap<String, List<Event>>());
         artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
+        artistEvents.get(name).put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
     }
 
     @Override
@@ -61,6 +62,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         Artist artist = new BandClass(name, listAlbuns, elements);
         artists.put(name, artist);
         artistEvents.put(name, new HashMap<String, List<Event>>());
+        artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
         artistEvents.get(name).put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
     }
    
