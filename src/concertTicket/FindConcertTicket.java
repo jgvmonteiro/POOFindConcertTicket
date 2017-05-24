@@ -16,6 +16,7 @@ import concertTicket.exceptions.InvalidPrivilegeException;
 import concertTicket.exceptions.AnotherUserLoggedInException;
 import concertTicket.ticket.Ticket;
 import concertTicket.artist.Artist;
+import concertTicket.artist.ArtistEventIterator;
 import concertTicket.event.Event;
 import concertTicket.users.User;
 import java.time.LocalDate;
@@ -32,8 +33,8 @@ public interface FindConcertTicket {
         ADMIN, CLIENT
     }
     
-     String EVENT_TYPE_CONCERT = "CONCERT";
-     String EVENT_TYPE_FESTIVAL= "FESTIVAL";
+    String EVENT_TYPE_CONCERT = "CONCERT";
+    String EVENT_TYPE_FESTIVAL= "FESTIVAL";
     
     
     ///////////////////////////ADMIN
@@ -185,7 +186,7 @@ public interface FindConcertTicket {
      * @param artistName
      * @return iterator of events
      */
-    Iterator<Event> searchEventsWithArtist(String artistName);// no enunciado nao diz o que acontece quando alguma coisa corre mal mas deve throwar um artistnotfoundexception
+    ArtistEventIterator searchEventsWithArtist(String artistName);// no enunciado nao diz o que acontece quando alguma coisa corre mal mas deve throwar um artistnotfoundexception
     
     
     //////////////////// MISC

@@ -26,7 +26,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     Map<String,Artist> artists;
     Map<String,User> users;
     List<Event> eventsList;
-    Map<String, List<Event>> artistEvents;
+    Map<String, Map<String, List<Event>>> artistEvents;
     Map<LocalDate, Map<String,Event>> events;
     
     public FindConcertTicketClass() {
@@ -35,7 +35,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.users = new HashMap<String,User>();
         this.eventsList = new ArrayList<Event>();
         this.currentUser = null;
-        this.artistEvents = new HashMap<String, List<Event>>();
+        this.artistEvents = new HashMap<String, Map<String, List<Event>>>();
+        
     }
 
     @Override
@@ -46,7 +47,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
         artists.put(name, artist);
-        artistEvents.put(name, new ArrayList<Event>());
+        addArtist(name);
     }
 
     @Override
@@ -57,7 +58,12 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
         artists.put(name, artist);
-        artistEvents.put(name, new ArrayList<Event>());
+        addArtist(name);
+    }
+    
+    private void addArtist(String name){
+        artistEvents.put(name, new HashMap<String, List<Event>>());
+        artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
     }
 
     @Override
@@ -73,7 +79,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(date))
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
-        artistEvents.get(artistName).add(e);
+        artistEvents.get(artistName).get(EVENT_TYPE_CONCERT).add(e);
         eventsList.add(e);
     }
 
@@ -103,7 +109,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
         for(Artist artist : artists)
-            artistEvents.get(artist.getName()).add(e);
+            artistEvents.get(artist.getName()).get(EVENT_TYPE_CONCERT).add(e);
         eventsList.add(e);
     }
 
@@ -215,9 +221,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public Iterator<Event> searchEventsWithArtist(String artistName) {
-
-            return null;
+    public ArtistEventIterator searchEventsWithArtist(String artistName) {
+      return new ArtistIterator(artistEvents.get(artistName));
     }
 
 

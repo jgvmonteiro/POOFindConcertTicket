@@ -4,6 +4,8 @@ import concertTicket.FindConcertTicket;
 import java.util.Scanner;
 
 import concertTicket.FindConcertTicket.*;
+import concertTicket.artist.Artist;
+import concertTicket.artist.ArtistEventIterator;
 import concertTicket.event.Concert;
 import concertTicket.event.Event;
 import concertTicket.event.Festival;
@@ -380,13 +382,25 @@ public class Main {
             String name = in.nextLine();
             LocalDate date = LocalDate.parse(in.nextLine());
             Event e = fct.checkEventData(name, name);
-            System.out.println(e.name()+" on "+date+":" );
+            System.out.println(e.name()+" on "+date.toString()+":" );
             printEventData(e);
             
         } catch (EventNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+    }
+    
+    private static void searchArtistEvents(FindConcertTicket fct, Scanner in){      
+        String artistName = in.nextLine();
+        ArtistEventIterator it = fct.searchEventsWithArtist(artistName);
+        System.out.printf("Concerts of %s:\n", artistName);
+        while(it.hasNextConcert())
+            printEventData(it.nextConcert());
+        System.out.printf("Festivals where %s will play:\n", artistName);
+        while(it.hasNextFestival())
+            printEventData(it.nextFestival());
+ 
+        System.out.println("");
     }
   
 
