@@ -87,7 +87,7 @@ public class Main {
     private static final String EX_ARTIST_ALREADY_EXISTS = "Artist name already exists.\n";
     private static final String EX_ARTIST_NOT_FOUND_SINGLE = "Artist name does not exist.\n";
     private static final String EX_ARTIST_NOT_FOUND_MULTIPLE = "Artist names do not exist.\n";
-    private static final String EX_EVENT_ALREADY_EXISTS = "";
+    private static final String EX_EVENT_ALREADY_EXISTS = "Show already exists.\n";
     private static final String EX_EVENT_NOT_FOUND = "Show does not exist.\n";
     private static final String EX_EVENT_SOLD_OUT = "There are not sufficient seats for the request.\n";
     private static final String EX_INVALID_PRIVILEGE = "User cannot execute this command.\n";
