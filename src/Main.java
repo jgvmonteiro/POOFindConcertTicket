@@ -66,7 +66,7 @@ public class Main {
 
     //system messages
     private static final String SYS_EXIST_MESSAGE = "Exiting.\n";
-    private static final String SYS_ALL_SHOWS_LIST_HEADER = "All shows:\n";
+    private static final String SYS_ALL_SHOWS_LIST_HEADER = "All shows:";
     private static final String SYS_CONCERT_LIST_HEADER = "Concerts:\n";
     private static final String SYS_FESTIVALS_LIST_HEADER = "Festivals:\n";
     private static final String SYS_SHOW_INFO = "%s on %s\n";	//show name, show date
