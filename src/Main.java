@@ -331,7 +331,7 @@ public class Main {
                 System.out.printf("%d %d\n", i, fe.price(i));
             }
             for(LocalDate date:dates)
-                System.out.printf("%s %\nd", date, fe.availableTickets(date));
+                System.out.printf("%s %d\n", date, fe.availableTickets(date));
         }
     }
 
