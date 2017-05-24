@@ -366,6 +366,7 @@ public class Main {
            Event e = it.next();
            printEventData(e);
        }
+       System.out.println();
    }
     
     private static void listByType(FindConcertTicket fct, Scanner in) {
