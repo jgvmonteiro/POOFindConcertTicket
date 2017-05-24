@@ -12,7 +12,6 @@ import java.time.LocalDate;
 public interface Concert extends Event{
 
     Artist artist();
-    LocalDate date();
     String description();
     ConcertTicket buyTickets(int amount);
     int price();

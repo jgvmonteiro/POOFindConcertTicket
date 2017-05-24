@@ -13,10 +13,7 @@ public interface Event {
     
     String name();
     
-    int availableTickets();
-    
-    void sellTickets(int amount);
-    
+    LocalDate startDate();
     
     boolean equals(Event event);
         

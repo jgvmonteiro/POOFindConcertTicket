@@ -13,15 +13,13 @@ import java.time.LocalDate;
 public class ConcertClass extends EventClass implements Concert{
     
     private Artist artist;
-    private LocalDate date;
     private int price;
     int ticketsSold, capacity;
 
     
     public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int availableTickets, int price) {
-        super(eventName, description, availableTickets);
+        super(eventName, description, date,  availableTickets);
         this.artist = artist;
-        this.date = date;
         this.price = price;
         this.capacity = availableTickets;
         this.ticketsSold = 0;
@@ -39,15 +37,9 @@ public class ConcertClass extends EventClass implements Concert{
     }
 
     @Override
-    public LocalDate date() {
-        return date;
-    }
-
-
-    @Override
     public ConcertTicket buyTickets(int amount) {
        sellTickets(amount);
-       return new ConcertTicketClass(name(), date, amount, price);
+       return new ConcertTicketClass(name(), startDate(), amount, price);
     }
     
     public int availableTickets(){
@@ -63,7 +55,7 @@ public class ConcertClass extends EventClass implements Concert{
     public boolean equals(Event event) {
         if(event instanceof Concert){
             Concert conc = (Concert) event;
-            if (conc.name().equalsIgnoreCase(super.name()) && conc.date().isEqual(date))
+            if (conc.name().equalsIgnoreCase(super.name()) && conc.startDate().isEqual(startDate))
                 return true;
         }
         return false;
