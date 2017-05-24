@@ -16,7 +16,7 @@ public interface Concert extends Event{
     String description();
     ConcertTicket buyTickets(int amount);
     int price();
-    
+    int availableTickets();
     
     
 }

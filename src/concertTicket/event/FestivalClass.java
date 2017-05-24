@@ -5,6 +5,7 @@ import concertTicket.artist.Artist;
 import concertTicket.ticket.FestivalTicket;
 import concertTicket.ticket.FestivalTicketClass;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,7 +16,8 @@ public class FestivalClass extends EventClass implements Festival{
 
     private Map<LocalDate,Artist[]> alignemnt;
     private int duration;
-    private int[] prices;  
+    private int[] prices;
+    private Map<LocalDate, Integer> avTicketsFest;
     private LocalDate startDate;
     
     public FestivalClass(String name, String description, Map<LocalDate,Artist[]> alignment, LocalDate startDate, int duration, int availableTickets, int[] prices) {
@@ -23,20 +25,28 @@ public class FestivalClass extends EventClass implements Festival{
         this.duration = duration;
         this.prices = prices;
         this.startDate = startDate;
+        assignTicketToDate(startDate, duration, availableTickets); 
+        }
+
+    public int checkTicketOnDate(LocalDate date){
+    	return avTicketsFest.get(date);
     }
 
     
-
+    
+    
     @Override
     public LocalDate startDate() {
         return startDate;
     }
 
+
+    
     @Override
     public int price(int days) {
         return prices[days-1];
     }
-
+    
 
     @Override
     public FestivalTicket buyTicket(LocalDate[] dates) {
@@ -57,7 +67,12 @@ public class FestivalClass extends EventClass implements Festival{
         return false;
     }
 
-    
+    private void assignTicketToDate(LocalDate startDate, int duration, int availableTickets){
+    	for(int i = 0; i < duration; i++){
+    		avTicketsFest.put(startDate, availableTickets);
+    		startDate.plusDays(1);
+    	}
+    }
     
     
 }

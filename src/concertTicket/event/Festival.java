@@ -14,5 +14,5 @@ public interface Festival extends Event{
     LocalDate startDate();
     int price(int days);
     FestivalTicket buyTicket(LocalDate[] dates);
-
+    int checkTicketOnDate(LocalDate date);
 }

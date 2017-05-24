@@ -11,13 +11,10 @@ public abstract class EventClass implements Event{
 
     private String description;
     private String name;
-    private int ticketsSold, capacity;
     
     public EventClass(String eventName, String description, int availableTickets) {
         this.description = description;
         this.name = eventName;
-        this.capacity = availableTickets;
-        this.ticketsSold = 0;
     }
 
     @Override
@@ -30,13 +27,7 @@ public abstract class EventClass implements Event{
         return name;
     }
 
-    public int availableTickets(){
-    	return capacity - ticketsSold;
-    }
     
-    public void sellTickets(int amount){
-    	ticketsSold += amount;
-    }
     
     
     @Override
