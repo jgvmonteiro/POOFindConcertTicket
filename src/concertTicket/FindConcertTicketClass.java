@@ -108,7 +108,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
         for(Artist artist : artists)
-            artistEvents.get(artist.getName()).get(EVENT_TYPE_CONCERT).add(e);
+            artistEvents.get(artist.getName()).get(EVENT_TYPE_FESTIVAL).add(e);
         eventsList.add(e);
     }
 
