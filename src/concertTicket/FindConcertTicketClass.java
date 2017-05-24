@@ -26,6 +26,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     User currentUser;
     Map<String,Artist> artists;
     Map<String,User> users;
+    Map<String,List<Event>> eventsType;
     List<Event> eventsList;
     Map<String, Map<String, List<Event>>> artistEvents;
     Map<LocalDate, Map<String,Event>> events;
@@ -34,6 +35,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.events = new HashMap<LocalDate, Map<String,Event>>();
         this.artists = new HashMap<String,Artist>();
         this.users = new HashMap<String,User>();
+        this.eventsType = new HashMap<String, List<Event>>();
+        this.eventsType.put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
+        this.eventsType.put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
         this.eventsList = new ArrayList<Event>();
         this.currentUser = null;
         this.artistEvents = new HashMap<String, Map<String, List<Event>>>();
@@ -81,6 +85,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
         artistEvents.get(artistName).get(EVENT_TYPE_CONCERT).add(e);
+        eventsType.get(EVENT_TYPE_CONCERT).add(e);
         eventsList.add(e);
     }
 
@@ -111,6 +116,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         events.get(startDate).put(eventName, e);
         for(Artist artist : artists)
             artistEvents.get(artist.getName()).get(EVENT_TYPE_FESTIVAL).add(e);
+        eventsType.get(EVENT_TYPE_FESTIVAL).add(e);
         eventsList.add(e);
     }
 
@@ -191,7 +197,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listAllEvents() {
-        
         return eventsList.iterator();
     }
 
@@ -206,9 +211,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
     @Override
     public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
         if(type.equalsIgnoreCase(EVENT_TYPE_CONCERT))
-            return new ConcertIterator(eventsList);
+            return eventsType.get(EVENT_TYPE_CONCERT).iterator();
         else if(type.equalsIgnoreCase(EVENT_TYPE_FESTIVAL))
-            return new FestivalIterator(eventsList);
+            return eventsType.get(EVENT_TYPE_FESTIVAL).iterator();
         else
             throw new UnknownEventTypeException();
     }
