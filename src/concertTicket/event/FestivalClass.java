@@ -27,7 +27,7 @@ public class FestivalClass extends EventClass implements Festival{
         this.capacityPERday = capacity;
         this.soldTickets = new HashMap<LocalDate, Integer>(alignment.size());
         for(LocalDate date : alignment.keySet())
-            soldTickets.put(date, capacity);
+            soldTickets.put(date, 0);
     }
 
     @Override
