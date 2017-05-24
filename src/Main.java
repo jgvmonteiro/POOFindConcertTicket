@@ -7,6 +7,7 @@ import concertTicket.FindConcertTicket.*;
 import concertTicket.event.Concert;
 import concertTicket.event.Event;
 import concertTicket.event.Festival;
+import concertTicket.event.FestivalDataIterator;
 import concertTicket.exceptions.AnotherUserLoggedInException;
 import concertTicket.exceptions.ArtistAlreadyExistsException;
 import concertTicket.exceptions.ArtistNotFoundException;
@@ -297,6 +298,38 @@ public class Main {
         
     }
  
+    
+    private static void printEventData(Event e) {
+        if (e instanceof Concert) {
+            Concert ce = (Concert) e;
+            System.out.println(ce.name());
+            System.out.println(ce.artist().getName());
+            System.out.println(ce.startDate());
+            System.out.println(ce.price());
+            System.out.println(ce.availableTickets());
+        } else {
+            Festival fe = (Festival)e;
+            System.out.println(fe.name());
+            FestivalDataIterator it = fe.alignmentIterator();
+            int i=0;
+            LocalDate[] dates = new LocalDate[fe.duration()];
+            while(it.hasNextDate()){
+                dates[i] = it.nextDate();
+                System.out.println(dates[i++].toString());
+                while (it.hasNextArtist()) {
+                    System.out.println(it.nextArtist().getName());
+                }
+            }
+            for(LocalDate date:dates)
+                System.out.println(date.toString());
+            for (i = 1; i <= fe.duration(); i++) {
+                System.out.printf("%d %d\n", i, fe.price(i));
+            }
+            for(LocalDate date:dates)
+                System.out.printf("%s %\nd", date, fe.availableTickets(date));
+        }
+    }
+
     private static void listTickets(FindConcertTicket fct, Scanner in){
         Iterator<Ticket> it = fct.listTickets();
         System.out.println(SYS_TICKET_LIST_HEADER);
@@ -326,37 +359,16 @@ public class Main {
        Iterator<Event> it = fct.listAllEvents();
        while(it.hasNext()){
            Event e = it.next();
-           if(e instanceof Concert){
-               Concert ce = (Concert)e;
-               System.out.println(ce.name());
-               System.out.println(ce.artist().getName());
-               System.out.println(ce.startDate());
-               System.out.println(ce.price());
-               System.out.println(ce.availableTickets());      
-           }else{
-               Festival fe = (Festival)e; 
-               System.out.println(fe.name());
-               System.out.println(fe.startDate());
-               System.out.println("NAO ESTA FEITO AINDA");
-           
-           }
+           printEventData(e);
        }
    }
     
     private static void listByType(FindConcertTicket fct, Scanner in) {
         try {
             String type = in.nextLine();
-            if (type.equalsIgnoreCase(FindConcertTicket.EVENT_TYPE_CONCERT)) {
                 Iterator<Event> it = fct.listEventsByType(type);
-                Concert c = (Concert)it.next();
-                System.out.println(c.name());
-                System.out.println(c.artist());
-                System.out.println(c.startDate().toString());
-                System.out.println(c.price());
-                System.out.println(c.availableTickets());
-            } else {
-                System.out.println("NAO ESTA FEITO AINDA");
-            }
+                while(it.hasNext())
+                    printEventData(it.next());
         } catch (UnknownEventTypeException e) {
             
         }
@@ -369,16 +381,7 @@ public class Main {
             LocalDate date = LocalDate.parse(in.nextLine());
             Event e = fct.checkEventData(name, name);
             System.out.println(e.name()+" on "+date+":" );
-            if(e instanceof Concert){
-                Concert c = (Concert)e;
-                System.out.println(c.name());
-                System.out.println(c.artist());
-                System.out.println(c.startDate().toString());
-                System.out.println(c.price());
-                System.out.println(c.availableTickets());
-            }else{
-                System.out.println("NAO ESTA FEITO AINDA");
-            }
+            printEventData(e);
             
         } catch (EventNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

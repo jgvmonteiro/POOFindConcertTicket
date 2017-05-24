@@ -33,6 +33,13 @@ public class FestivalClass extends EventClass implements Festival{
     public int availableTickets(LocalDate date){
     	return (capacityPERday-soldTickets.get(date));
     }
+
+    @Override
+    public int duration() {
+        return alignemnt.size();
+    }
+    
+    
     
     @Override
     public int price(int days) {
@@ -48,6 +55,11 @@ public class FestivalClass extends EventClass implements Festival{
                 throw new EventSoldOutException();
         return new FestivalTicketClass(name(), dates, prices[dates.length-1]);
     }
+
+    @Override
+    public FestivalDataIterator alignmentIterator() {
+        return new FestivalIteratorClass(alignemnt);
+    } 
 
     @Override
     public boolean equals(Event event) {

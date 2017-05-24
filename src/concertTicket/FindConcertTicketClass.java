@@ -1,31 +1,10 @@
 package concertTicket;
 
-import concertTicket.event.Festival;
-import concertTicket.event.Event;
-import concertTicket.event.ConcertClass;
-import concertTicket.event.Concert;
-import concertTicket.exceptions.ArtistAlreadyExistsException;
-import concertTicket.exceptions.UserAlreadyLoggedInException;
-import concertTicket.exceptions.WrongPasswordException;
-import concertTicket.exceptions.EventSoldOutException;
-import concertTicket.exceptions.EventNotFoundException;
-import concertTicket.exceptions.UserNotFoundException;
-import concertTicket.exceptions.UnknownEventTypeException;
-import concertTicket.exceptions.UserAlreadyExistsException;
-import concertTicket.exceptions.ArtistNotFoundException;
-import concertTicket.exceptions.EventAlreadyExistsException;
-import concertTicket.exceptions.LogoutException;
-import concertTicket.exceptions.InvalidPrivilegeException;
-import concertTicket.exceptions.AnotherUserLoggedInException;
-import concertTicket.users.Client;
-import concertTicket.users.Admin;
-import concertTicket.users.AdminClass;
-import concertTicket.users.ClientClass;
-import concertTicket.users.User;
-import concertTicket.ticket.Ticket;
-import concertTicket.artist.Artist;
-import concertTicket.artist.BandClass;
-import concertTicket.artist.ArtistClass;
+import concertTicket.event.*;
+import concertTicket.exceptions.*;
+import concertTicket.users.*;
+import concertTicket.ticket.*;
+import concertTicket.artist.*;
 import static concertTicket.FindConcertTicket.USER_TYPE.*;
 import concertTicket.event.FestivalClass;
 import concertTicket.ticket.TicketTypeComparator;
@@ -205,6 +184,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listAllEvents() {
+        
         return eventsList.iterator();
     }
 

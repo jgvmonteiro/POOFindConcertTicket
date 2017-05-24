@@ -13,6 +13,8 @@ import java.time.LocalDate;
 public interface Festival extends Event{
 
     int price(int days);
+    int duration();
     FestivalTicket buyTicket(LocalDate[] dates) throws EventSoldOutException;
     int availableTickets(LocalDate date);
+    FestivalDataIterator alignmentIterator();
 }
