@@ -325,8 +325,8 @@ public class Main {
                     System.out.println(it.nextArtist().getName());
                 }
             }
-            for(LocalDate date:dates)
-                System.out.println(date.toString());
+            System.out.println(dates[0].toString());
+            System.out.println(dates[dates.length-1].toString());
             for (i = 1; i <= fe.duration(); i++) {
                 System.out.printf("%d %d\n", i, fe.price(i));
             }
