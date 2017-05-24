@@ -119,7 +119,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         }
         if(notFound.size()>0)
             throw new ArtistNotFoundException((String[])notFound.toArray());
-        Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, aligment.length, tickets, price);
+        Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, tickets, price);
         if(!events.containsKey(startDate))
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
@@ -135,8 +135,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Concert e = (Concert)events.get(startDate).get(eventName);
-        if(ticketCount > e.availableTickets())
-            throw new EventSoldOutException();
         Ticket t = e.buyTickets(ticketCount);
         ((Client)currentUser).addTicket(t);
         return t.totalPrice();
@@ -149,8 +147,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Festival e = (Festival)events.get(startDate).get(eventName);
-        if(dates.length > e.availableTickets())
-            throw new EventSoldOutException();
          Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
         return t.totalPrice();

@@ -2,6 +2,7 @@
 package concertTicket.event;
 
 import concertTicket.artist.Artist;
+import concertTicket.exceptions.EventSoldOutException;
 import concertTicket.ticket.FestivalTicket;
 import java.time.LocalDate;
 
@@ -12,6 +13,6 @@ import java.time.LocalDate;
 public interface Festival extends Event{
 
     int price(int days);
-    FestivalTicket buyTicket(LocalDate[] dates);
-    int checkTicketOnDate(LocalDate date);
+    FestivalTicket buyTicket(LocalDate[] dates) throws EventSoldOutException;
+    int availableTickets(LocalDate date);
 }

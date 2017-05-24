@@ -2,6 +2,7 @@
 package concertTicket.event;
 
 import concertTicket.artist.Artist;
+import concertTicket.exceptions.EventSoldOutException;
 import concertTicket.ticket.FestivalTicket;
 import concertTicket.ticket.FestivalTicketClass;
 import java.time.LocalDate;
@@ -15,19 +16,22 @@ import java.util.Map;
 public class FestivalClass extends EventClass implements Festival{
 
     private Map<LocalDate,Artist[]> alignemnt;
-    private int duration;
     private int[] prices;
-    private Map<LocalDate, Integer> avTicketsFest;
+    private Map<LocalDate, Integer> soldTickets;
+    private int capacityPERday;
     
-    public FestivalClass(String name, String description, Map<LocalDate,Artist[]> alignment, LocalDate startDate, int duration, int availableTickets, int[] prices) {
-        super(name, description, startDate, availableTickets);
-        this.duration = duration;
+    public FestivalClass(String name, String description, Map<LocalDate,Artist[]> alignment, LocalDate startDate, int capacity, int[] prices) {
+        super(name, description, startDate);
         this.prices = prices;
-        assignTicketToDate(startDate, duration, availableTickets); 
-        }
+        this.capacityPERday = capacity;
+        this.soldTickets = new HashMap<LocalDate, Integer>(alignment.size());
+        for(LocalDate date : alignment.keySet())
+            soldTickets.put(date, capacity);
+    }
 
-    public int checkTicketOnDate(LocalDate date){
-    	return avTicketsFest.get(date);
+    @Override
+    public int availableTickets(LocalDate date){
+    	return (capacityPERday-soldTickets.get(date));
     }
     
     @Override
@@ -35,9 +39,13 @@ public class FestivalClass extends EventClass implements Festival{
         return prices[days-1];
     }
     
-
     @Override
-    public FestivalTicket buyTicket(LocalDate[] dates) {
+    public FestivalTicket buyTicket(LocalDate[] dates) throws EventSoldOutException{
+        for(LocalDate date:dates)
+            if(availableTickets(date)>0)
+                soldTickets.replace(date, soldTickets.get(date)+1);
+            else
+                throw new EventSoldOutException();
         return new FestivalTicketClass(name(), dates, prices[dates.length-1]);
     }
 
@@ -50,13 +58,5 @@ public class FestivalClass extends EventClass implements Festival{
        }
         return false;
     }
-
-    private void assignTicketToDate(LocalDate startDate, int duration, int availableTickets){
-    	for(int i = 0; i < duration; i++){
-    		avTicketsFest.put(startDate, availableTickets);
-    		startDate.plusDays(1);
-    	}
-    }
-    
-    
+ 
 }
