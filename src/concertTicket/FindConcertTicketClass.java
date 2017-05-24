@@ -213,7 +213,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public Event checkEventData(String eventName, String date) throws EventNotFoundException {
+    public Event checkEventData(String eventName, LocalDate date) throws EventNotFoundException {
         Map<String, Event> h = events.get(date);
         if(h == null)
             throw new EventNotFoundException();
