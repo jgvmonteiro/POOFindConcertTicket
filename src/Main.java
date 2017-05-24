@@ -376,6 +376,8 @@ public class Main {
                 Iterator<Event> it = fct.listEventsByType(type);
                 while(it.hasNext())
                     printEventData(it.next());
+                
+                System.out.println();
         } catch (UnknownEventTypeException e) {
             System.out.println("tipo errado...");
         }
