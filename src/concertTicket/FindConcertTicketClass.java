@@ -48,7 +48,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
         artists.put(name, artist);
-        addArtist(name);
+        artistEvents.put(name, new HashMap<String, List<Event>>());
+        artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
     }
 
     @Override
@@ -59,13 +60,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
         artists.put(name, artist);
-        addArtist(name);
-    }
-    
-    private void addArtist(String name){
         artistEvents.put(name, new HashMap<String, List<Event>>());
-        artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
+        artistEvents.get(name).put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
     }
+   
 
     @Override
     public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
