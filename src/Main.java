@@ -371,7 +371,8 @@ public class Main {
     
     private static void listByType(FindConcertTicket fct, Scanner in) {
         try {
-            String type = in.nextLine();
+                String type = in.nextLine();
+                System.out.println(type+":");
                 Iterator<Event> it = fct.listEventsByType(type);
                 while(it.hasNext())
                     printEventData(it.next());
