@@ -22,5 +22,4 @@ public interface Event extends Comparable<Event>{
         
     boolean equals(String name, LocalDate startDate);
     
-    int compareTo(Event o);
 }

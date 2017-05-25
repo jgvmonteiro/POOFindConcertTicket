@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.TreeMap;
-import javafx.collections.transformation.SortedList;
+import java.util.TreeSet;
 
 /**
  *
@@ -29,7 +30,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     Map<String,User> users;
     Map<String,List<Event>> eventsType;
     List<Event> eventsList;
-    List<Event> eventsList2;
+    SortedSet<Event> eventsList2;
     Map<String, Map<String, List<Event>>> artistEvents;
     Map<LocalDate, Map<String,Event>> events;
     
@@ -41,7 +42,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.eventsType.put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
         this.eventsType.put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
         this.eventsList = new ArrayList<Event>();
-        this.eventsList2 = new ArrayList<Event>();
+        this.eventsList2 = new TreeSet<Event>(new MostSoldOrder());
         this.currentUser = null;
         this.artistEvents = new HashMap<String, Map<String, List<Event>>>();
         
@@ -216,7 +217,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listMostSold() {
-        eventsList2.sort(new MostSoldOrder());
         return eventsList2.iterator();
     }
 
