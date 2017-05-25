@@ -2,12 +2,13 @@
 package concertTicket.event;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 /**
  *
  * @author Joao Monteiro
  */
-public interface Event {
+public interface Event extends Comparable<Event>{
 
     String description();
     
@@ -18,4 +19,6 @@ public interface Event {
     boolean equals(Event event);
         
     boolean equals(String name, LocalDate startDate);
+    
+    int compareTo(Event o);
 }

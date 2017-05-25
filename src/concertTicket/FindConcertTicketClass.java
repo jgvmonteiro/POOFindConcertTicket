@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javafx.collections.transformation.SortedList;
 
 /**
  *
@@ -51,10 +52,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (artists.containsKey(name)) 
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
-        artists.put(name, artist);
-        artistEvents.put(name, new HashMap<String, List<Event>>());
-        artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
-        artistEvents.get(name).put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
+        addartist(name, artist);
     }
 
     @Override
@@ -64,12 +62,15 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (artists.containsKey(name))
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
+        addartist(name, artist);
+    }
+   
+    private void addartist(String name, Artist artist){
         artists.put(name, artist);
         artistEvents.put(name, new HashMap<String, List<Event>>());
         artistEvents.get(name).put(EVENT_TYPE_CONCERT, new ArrayList<Event>());
         artistEvents.get(name).put(EVENT_TYPE_FESTIVAL, new ArrayList<Event>());
     }
-   
 
     @Override
     public void addEvent(String eventName, String artistName, String description, LocalDate date, int avaiableTickets, int price) throws InvalidPrivilegeException, EventAlreadyExistsException, ArtistNotFoundException {
@@ -85,6 +86,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
         artistEvents.get(artistName).get(EVENT_TYPE_CONCERT).add(e);
+        Collections.sort(artistEvents.get(artistName).get(EVENT_TYPE_CONCERT));
         eventsType.get(EVENT_TYPE_CONCERT).add(e);
         eventsList.add(e);
     }
@@ -97,15 +99,17 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new EventAlreadyExistsException();
         Map<LocalDate, Artist[]> mapAlignemnt = new TreeMap<LocalDate, Artist[]>();
         List<String> notFound = new ArrayList<String>();
-        Artist[] artists = null;
+        List<String> allArtists = new ArrayList<String>();
         for (int i = 0; i < aligment.length; i++) {
             LocalDate date = startDate.plusDays(i);
-            artists = new Artist[aligment[i].length];
+            Artist[] artists = new Artist[aligment[i].length];
             for (int j = 0; j < aligment[i].length; j++) 
                 if(!this.artists.containsKey(aligment[i][j]))
                     notFound.add(aligment[i][j]);
-                else
+                else{
                     artists[j] = this.artists.get(aligment[i][j]);
+                    allArtists.add(aligment[i][j]);
+                }
             mapAlignemnt.put(date, artists);
         }
         if(notFound.size()>0)
@@ -114,8 +118,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(startDate))
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
-        for(Artist artist : artists)
-            artistEvents.get(artist.getName()).get(EVENT_TYPE_FESTIVAL).add(e);
+        for(String artist : allArtists){
+            artistEvents.get(artist).get(EVENT_TYPE_FESTIVAL).add(e);
+        Collections.sort(artistEvents.get(artist).get(EVENT_TYPE_FESTIVAL));}
         eventsType.get(EVENT_TYPE_FESTIVAL).add(e);
         eventsList.add(e);
     }
@@ -210,10 +215,13 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Iterator<Event> listEventsByType(String type) throws UnknownEventTypeException{
-        if(type.equalsIgnoreCase(EVENT_TYPE_CONCERT))
-            return eventsType.get(EVENT_TYPE_CONCERT).iterator();
-        else if(type.equalsIgnoreCase(EVENT_TYPE_FESTIVAL))
+        if(type.equalsIgnoreCase(EVENT_TYPE_CONCERT)){
+            Collections.sort(eventsType.get(EVENT_TYPE_CONCERT));
+            return eventsType.get(EVENT_TYPE_CONCERT).iterator();}
+        else if(type.equalsIgnoreCase(EVENT_TYPE_FESTIVAL)){
+            Collections.sort(eventsType.get(EVENT_TYPE_FESTIVAL));
             return eventsType.get(EVENT_TYPE_FESTIVAL).iterator();
+        }
         else
             throw new UnknownEventTypeException();
     }

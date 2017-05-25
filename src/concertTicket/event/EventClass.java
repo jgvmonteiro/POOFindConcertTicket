@@ -51,6 +51,12 @@ public abstract class EventClass implements Event{
     public boolean equals(String name, LocalDate startDate){
     	return (this.name.equals(name) && startDate.isEqual(startDate));
     }
+
+    @Override
+    public int compareTo(Event o) {
+        return startDate.compareTo(o.startDate());
+    }
+    
     
     
     

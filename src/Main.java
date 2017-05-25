@@ -27,13 +27,7 @@ import concertTicket.ticket.ConcertTicket;
 import concertTicket.ticket.FestivalTicket;
 import concertTicket.ticket.Ticket;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -70,7 +64,7 @@ public class Main {
     private static final String SYS_CONCERT_LIST_HEADER = "Concerts:\n";
     private static final String SYS_FESTIVALS_LIST_HEADER = "Festivals:\n";
     private static final String SYS_SHOW_INFO = "%s on %s\n";	//show name, show date
-    private static final String SYS_ARTIST_SEARCH_CONCERTS = "Concerts of %s\n"; //artist name
+    private static final String SYS_ARTIST_SEARCH_CONCERTS = "Concerts of %s:\n"; //artist name
     private static final String SYS_ARTIST_SEARCH_FESTIVALS = "Festivals where %s will play:\n"; //artist name
     private static final String SYS_USER_REGISTER_SUCCESS = "User was registered: %s\n\n"; //user password
     private static final String SYS_CONCERT_OR_FESTIVAL = "CONCERT OR FESTIVAL?";
