@@ -33,8 +33,12 @@ public interface FindConcertTicket {
         ADMIN, CLIENT
     }
     
-    String EVENT_TYPE_CONCERT = "CONCERT";
-    String EVENT_TYPE_FESTIVAL= "FESTIVAL";
+    enum EVENT_TYPE{
+        FESTIVAL, CONCERT
+    }
+    
+    String EVENT_TYPE_CONCERT_STR = "CONCERT";
+    String EVENT_TYPE_FESTIVAL_STR= "FESTIVAL";
     
     
     ///////////////////////////ADMIN

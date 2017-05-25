@@ -34,28 +34,7 @@ public abstract class EventClass implements Event{
         return startDate;
     }
     
-    
-    @Override
-    public boolean equals(Event event) {
-        if (this instanceof Concert && event instanceof Concert) {
-            Concert conc = (Concert) event;
-            return conc.equals(this);
-        } else if (this instanceof Festival && event instanceof Festival) {
-            Festival fest = (Festival) event;
-            return fest.equals(this);
-        }
-      return false;
-    }
 
-    @Override
-    public boolean equals(String name, LocalDate startDate){
-    	return (this.name.equals(name) && startDate.isEqual(startDate));
-    }
-
-    @Override
-    public int compareTo(Event o) {
-        return startDate.compareTo(o.startDate());
-    }
     
     
     

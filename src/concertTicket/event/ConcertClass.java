@@ -57,15 +57,6 @@ public class ConcertClass extends EventClass implements Concert{
         return price;
     }
 
-    @Override
-    public boolean equals(Event event) {
-        if(event instanceof Concert){
-            Concert conc = (Concert) event;
-            if (conc.name().equalsIgnoreCase(super.name()) && conc.startDate().isEqual(startDate))
-                return true;
-        }
-        return false;
-    }
 
 
 	

@@ -1,13 +1,16 @@
 
 package concertTicket.exceptions;
 
+import java.util.List;
+
 /**
  *
  * @author Joao Monteiro
  */
 public class ArtistNotFoundException extends Exception{
 
-	String artistList[];
+	List<String> artistList;
+        private String artist;
 	
     public ArtistNotFoundException() {
         super();
@@ -15,16 +18,23 @@ public class ArtistNotFoundException extends Exception{
     
     public ArtistNotFoundException(String artist) {
         super();
-        artistList = new String[1];
-        artistList[0] = artist;
+        this.artist = artist;
     }
 
-    public ArtistNotFoundException(String artistList[]){
+    public ArtistNotFoundException(List<String> artistList){
     	super();
     	this.artistList = artistList;
     }
     
     public String[] getArtistList(){
-    	return this.artistList;
+        String[] r;
+        if(artistList==null){
+            r = new String[artistList.size()];
+            artistList.toArray(r);
+        }else {
+            r = new String[1];
+            r[0] = artist;
+        }
+        return r;
     }
 }

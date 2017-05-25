@@ -13,6 +13,6 @@ import java.util.List;
 public interface Client extends User{
 
     void addTicket(Ticket event);
-    List<Ticket> myTickets();
+    Iterator<Ticket> ticketsIterator();
     
 }

@@ -70,14 +70,5 @@ public class FestivalClass extends EventClass implements Festival{
         return new FestivalIteratorClass(alignemnt);
     } 
 
-    @Override
-    public boolean equals(Event event) {
-        if(event instanceof Festival){
-            Festival fest = (Festival)event;
-            if(fest.name().equalsIgnoreCase(name()) && fest.startDate().isEqual(startDate()))
-                return true;
-       }
-        return false;
-    }
  
 }

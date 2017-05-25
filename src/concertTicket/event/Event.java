@@ -8,7 +8,7 @@ import java.util.Comparator;
  *
  * @author Joao Monteiro
  */
-public interface Event extends Comparable<Event>{
+public interface Event{
 
     String description();
     
@@ -18,8 +18,6 @@ public interface Event extends Comparable<Event>{
     
     int soldTickets();
     
-    boolean equals(Event event);
-        
-    boolean equals(String name, LocalDate startDate);
+
     
 }

@@ -1,5 +1,7 @@
 package concertTicket.artist;
 
+import concertTicket.FindConcertTicket;
+import concertTicket.util.OrderList;
 import concertTicket.event.Concert;
 import concertTicket.event.Event;
 import concertTicket.event.Festival;
@@ -11,14 +13,14 @@ import java.util.Map;
  *
  * @author Joao Monteiro
  */
-public class ArtistIterator implements ArtistEventIterator{
+public class ArtistEventIteratorClass implements ArtistEventIterator{
 
     Iterator<Event> concerts;
     Iterator<Event> festivals;
     
-    public ArtistIterator(Map<String, List<Event>> eventsMap) {
-        concerts = eventsMap.get(concertTicket.FindConcertTicket.EVENT_TYPE_CONCERT).iterator();
-        festivals = eventsMap.get(concertTicket.FindConcertTicket.EVENT_TYPE_FESTIVAL).iterator();
+    public ArtistEventIteratorClass(Map<FindConcertTicket.EVENT_TYPE, OrderList<Event>> eventsMap) {
+        concerts = eventsMap.get(concertTicket.FindConcertTicket.EVENT_TYPE.CONCERT).iterator();
+        festivals = eventsMap.get(concertTicket.FindConcertTicket.EVENT_TYPE.FESTIVAL).iterator();
     }
     
     @Override

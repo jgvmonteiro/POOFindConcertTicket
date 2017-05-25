@@ -11,7 +11,6 @@ public interface Artist {
 
     String getName();
     Iterator<String> getAlbums();
-    boolean equals(Object other);
     
     
 }

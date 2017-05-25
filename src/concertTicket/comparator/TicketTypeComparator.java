@@ -1,5 +1,8 @@
-package concertTicket.ticket;
+package concertTicket.comparator;
 
+import concertTicket.ticket.ConcertTicket;
+import concertTicket.ticket.FestivalTicket;
+import concertTicket.ticket.Ticket;
 import java.util.Comparator;
 
 /**
