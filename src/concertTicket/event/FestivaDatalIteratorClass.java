@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @author Joao Monteiro
  */
-public class FestivalIteratorClass implements FestivalDataIterator{
+public class FestivaDatalIteratorClass implements FestivalDataIterator{
 
     Iterator<LocalDate> dates;
     Iterator<Artist[]> artists;
@@ -20,7 +20,7 @@ public class FestivalIteratorClass implements FestivalDataIterator{
     int artist_index;
     
     
-    public FestivalIteratorClass(Map<LocalDate, Artist[]> alignment) {
+    public FestivaDatalIteratorClass(Map<LocalDate, Artist[]> alignment) {
         this.dates = alignment.keySet().iterator();
         this.artists = alignment.values().iterator();
     }

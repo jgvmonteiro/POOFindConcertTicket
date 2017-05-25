@@ -67,7 +67,7 @@ public class FestivalClass extends EventClass implements Festival{
 
     @Override
     public FestivalDataIterator alignmentIterator() {
-        return new FestivalIteratorClass(alignemnt);
+        return new FestivaDatalIteratorClass(alignemnt);
     } 
 
  
