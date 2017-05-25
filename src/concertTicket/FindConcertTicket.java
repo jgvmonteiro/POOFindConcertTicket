@@ -186,7 +186,7 @@ public interface FindConcertTicket {
      * @param artistName
      * @return iterator of events
      */
-    ArtistEventIterator searchEventsWithArtist(String artistName);// no enunciado nao diz o que acontece quando alguma coisa corre mal mas deve throwar um artistnotfoundexception
+    ArtistEventIterator searchEventsWithArtist(String artistName) throws ArtistNotFoundException;// no enunciado nao diz o que acontece quando alguma coisa corre mal mas deve throwar um artistnotfoundexception
     
     
     //////////////////// MISC

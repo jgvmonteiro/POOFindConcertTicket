@@ -16,6 +16,8 @@ public interface Event extends Comparable<Event>{
     
     LocalDate startDate();
     
+    int soldTickets();
+    
     boolean equals(Event event);
         
     boolean equals(String name, LocalDate startDate);

@@ -36,6 +36,14 @@ public class FestivalClass extends EventClass implements Festival{
     }
 
     @Override
+    public int soldTickets() {
+        int total = 0;
+        for(Integer val : soldTickets.values())
+            total+=val;
+        return total;
+    }
+    
+    @Override
     public int duration() {
         return alignemnt.size();
     }

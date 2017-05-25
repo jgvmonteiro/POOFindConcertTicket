@@ -28,6 +28,8 @@ import concertTicket.ticket.FestivalTicket;
 import concertTicket.ticket.Ticket;
 import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -138,6 +140,9 @@ public class Main {
                 case CMD_SEARCH:
                 	searchArtistEvents(fct, in);
                 	break;
+                case CMD_SHOWS_BY_CLIENTS:
+                    listMostSold(fct, in);
+                    break;
                 default:
                     break;
             }
@@ -366,14 +371,14 @@ public class Main {
     private static void listByType(FindConcertTicket fct, Scanner in) {
         try {
                 String type = in.nextLine();
-                System.out.println(type + "s:");
                 Iterator<Event> it = fct.listEventsByType(type);
+                System.out.println(type + "s:");
                 while(it.hasNext())
                     printEventData(it.next());
                 
                 System.out.println();
         } catch (UnknownEventTypeException e) {
-            System.out.println("tipo errado...");
+            System.out.println("Unknown type of show.\n");
         }
     }
     
@@ -393,16 +398,33 @@ public class Main {
     }
     
     private static void searchArtistEvents(FindConcertTicket fct, Scanner in){      
-        String artistName = in.nextLine();
-        ArtistEventIterator it = fct.searchEventsWithArtist(artistName);
-        System.out.printf(SYS_ARTIST_SEARCH_CONCERTS, artistName);
-        while(it.hasNextConcert())
-            printEventData(it.nextConcert());
-        System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
-        while(it.hasNextFestival())
-            printEventData(it.nextFestival());
- 
-        System.out.println("");
+            String artistName = in.nextLine();
+        try {
+            ArtistEventIterator it = fct.searchEventsWithArtist(artistName);
+            System.out.printf(SYS_ARTIST_SEARCH_CONCERTS, artistName);
+            while(it.hasNextConcert())
+                printEventData(it.nextConcert());
+            System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
+            while(it.hasNextFestival())
+                printEventData(it.nextFestival());
+            
+            System.out.println("");
+        } catch (ArtistNotFoundException ex) {
+            System.out.printf(SYS_ARTIST_SEARCH_CONCERTS, artistName);
+            System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
+        }
+    }
+    
+    private static void listMostSold(FindConcertTicket fct, Scanner in){
+        
+        System.out.println("Most sold shows:");
+        Iterator<Event> it = fct.listMostSold();
+        while (it.hasNext()) {
+            Event next = it.next();
+            printEventData(next);
+        }
+        
+        
     }
   
 
