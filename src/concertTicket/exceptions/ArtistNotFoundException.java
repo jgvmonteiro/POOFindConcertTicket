@@ -28,7 +28,7 @@ public class ArtistNotFoundException extends Exception{
     
     public String[] getArtistList(){
         String[] r;
-        if(artistList==null){
+        if(artistList!=null){
             r = new String[artistList.size()];
             artistList.toArray(r);
         }else {
