@@ -87,7 +87,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(date))
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
-        artistEvents.get(artistName).get(EVENT_TYPE_CONCERT_STR).add(e);
+        artistEvents.get(artistName).get(EVENT_TYPE.CONCERT).add(e);
         eventsType.get(EVENT_TYPE.CONCERT).add(e);
         eventsList.add(e);
         eventsMostSold.add(e);
@@ -147,7 +147,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!(events.containsKey(startDate) && events.get(startDate).containsKey(eventName)))
             throw new EventNotFoundException();
         Festival e = (Festival)events.get(startDate).get(eventName);
-         Ticket t = e.buyTicket(dates);
+        Ticket t = e.buyTicket(dates);
         ((Client)currentUser).addTicket(t);
         return t.totalPrice();
     }
@@ -226,13 +226,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
 
     @Override
     public Event checkEventData(String eventName, LocalDate date) throws EventNotFoundException {
-        Map<String, Event> h = events.get(date);
-        if(h == null)
-            throw new EventNotFoundException();
-        Event e = h.get(eventName);
-        if(e == null)
+        if(events.get(date) == null || events.get(date).get(eventName) == null)
         	throw new EventNotFoundException();
-        return e;
+        return events.get(date).get(eventName);
     }
 
     @Override
