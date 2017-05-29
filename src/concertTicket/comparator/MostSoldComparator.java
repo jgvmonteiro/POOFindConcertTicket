@@ -1,9 +1,7 @@
 package concertTicket.comparator;
 
 import concertTicket.event.Event;
-import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
 
 /**
  *
