@@ -77,6 +77,7 @@ public class Main {
     private static final String SYS_LOGIN_SUCCESS = "Welcome %s\n\n"; //user email
     private static final String SYS_LOGOUT_SUCCESS = "Goodbye %s\n\n"; //user email
     private static final String SYS_TICKET_LIST_HEADER = "My tickets:\n";
+    private static final String SYS_MOST_SOLD_SHOWS = "Most sold shows:";
 
     //Exceptions
     private static final String EX_ANOTHER_USER_LOGGED_IN = "Another user is logged in.\n";
@@ -96,6 +97,11 @@ public class Main {
 
     private static final String EX_UNKNOWN = "Unknown exception occured.\n";
 
+    private static final String HELP_ON = " on ";
+    private static final String HELP_PLURAL = "s:";
+    private static final String HELP_COLON = ":";
+    
+    
     public static void main(String[] args) {
     	interpreter();
     }
@@ -263,7 +269,7 @@ public class Main {
         }
     }
     
-    private static void handleArtistsNotFoundException(ArtistNotFoundException e){ //ola
+    private static void handleArtistsNotFoundException(ArtistNotFoundException e){
     	String[] list = e.getArtistList();
     	if(list.length == 1)
     		System.out.println(EX_ARTIST_NOT_FOUND_SINGLE);
@@ -325,7 +331,7 @@ public class Main {
                 }
             }
             System.out.println(dates[0].toString());
-            System.out.println(dates[dates.length-1].toString());
+            System.out.println(dates[dates.length - 1].toString());
             for (i = 1; i <= fe.duration(); i++) {
                 System.out.printf("%d %d\n", i, fe.price(i));
             }
@@ -372,13 +378,13 @@ public class Main {
         try {
                 String type = in.nextLine();
                 Iterator<Event> it = fct.listEventsByType(type);
-                System.out.println(type + "s:");
+                System.out.println(type + HELP_PLURAL);
                 while(it.hasNext())
                     printEventData(it.next());
                 
                 System.out.println();
         } catch (UnknownEventTypeException e) {
-            System.out.println("Unknown type of show.\n");
+            System.out.println(EX_UNKOWN_EVENT_TYPE);
         }
     }
     
@@ -388,7 +394,7 @@ public class Main {
             String name = in.nextLine();
             LocalDate date = LocalDate.parse(in.nextLine());
             Event e = fct.checkEventData(name, date);
-            System.out.println(e.name()+" on "+date.toString()+":" );
+            System.out.println(e.name() + HELP_ON + date.toString() + HELP_COLON);
             printEventData(e);
             System.out.println();
         } catch (EventNotFoundException ex) {
@@ -408,7 +414,7 @@ public class Main {
             while(it.hasNextFestival())
                 printEventData(it.nextFestival());
             
-            System.out.println("");
+            System.out.println();
         } catch (ArtistNotFoundException ex) {
             System.out.printf(SYS_ARTIST_SEARCH_CONCERTS, artistName);
             System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
@@ -417,7 +423,7 @@ public class Main {
     
     private static void listMostSold(FindConcertTicket fct, Scanner in){
         
-        System.out.println("Most sold shows:");
+        System.out.println(SYS_MOST_SOLD_SHOWS);
         Iterator<Event> it = fct.listMostSold();
         while (it.hasNext()) {
             Event next = it.next();
