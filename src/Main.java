@@ -413,7 +413,6 @@ public class Main {
     }
     
     private static void listMostSold(FindConcertTicket fct, Scanner in){
-        
         System.out.println(SYS_MOST_SOLD_SHOWS);
         Iterator<Event> it = fct.listMostSold();
         while (it.hasNext()) {
