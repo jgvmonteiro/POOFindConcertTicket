@@ -4,7 +4,6 @@ import concertTicket.FindConcertTicket;
 import java.util.Scanner;
 
 import concertTicket.FindConcertTicket.*;
-import concertTicket.artist.Artist;
 import concertTicket.artist.ArtistEventIterator;
 import concertTicket.event.Concert;
 import concertTicket.event.Event;
@@ -28,8 +27,6 @@ import concertTicket.ticket.FestivalTicket;
 import concertTicket.ticket.Ticket;
 import java.time.LocalDate;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -63,9 +60,6 @@ public class Main {
     //system messages
     private static final String SYS_EXIST_MESSAGE = "Exiting.\n";
     private static final String SYS_ALL_SHOWS_LIST_HEADER = "All shows:";
-    private static final String SYS_CONCERT_LIST_HEADER = "Concerts:\n";
-    private static final String SYS_FESTIVALS_LIST_HEADER = "Festivals:\n";
-    private static final String SYS_SHOW_INFO = "%s on %s\n";	//show name, show date
     private static final String SYS_ARTIST_SEARCH_CONCERTS = "Concerts of %s:\n"; //artist name
     private static final String SYS_ARTIST_SEARCH_FESTIVALS = "Festivals where %s will play:\n"; //artist name
     private static final String SYS_USER_REGISTER_SUCCESS = "User was registered: %s\n\n"; //user password
@@ -93,7 +87,7 @@ public class Main {
     private static final String EX_USER_NOT_FOUND = "User does not exist.\n";
     private static final String EX_WRONG_PASSWORD = "Wrong password.\n";
 
-    private static final String EX_UNKNOWN = "Unknown exception occured.\n";
+    //private static final String EX_UNKNOWN = "Unknown exception occured.\n";
 
     private static final String HELP_ON = " on ";
     private static final String HELP_PLURAL = "s:";

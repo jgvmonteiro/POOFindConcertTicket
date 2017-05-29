@@ -1,7 +1,6 @@
 
 package concertTicket.event;
 
-import concertTicket.artist.Artist;
 import concertTicket.exceptions.EventSoldOutException;
 import concertTicket.ticket.FestivalTicket;
 import java.time.LocalDate;

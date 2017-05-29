@@ -6,7 +6,6 @@ import concertTicket.event.Concert;
 import concertTicket.event.Event;
 import concertTicket.event.Festival;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**

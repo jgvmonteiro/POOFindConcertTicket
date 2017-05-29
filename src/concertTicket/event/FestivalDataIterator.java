@@ -2,7 +2,6 @@ package concertTicket.event;
 
 import concertTicket.artist.Artist;
 import java.time.LocalDate;
-import java.util.Iterator;
 
 /**
  *

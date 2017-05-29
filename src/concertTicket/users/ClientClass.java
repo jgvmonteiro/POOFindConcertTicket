@@ -3,12 +3,9 @@ package concertTicket.users;
 
 import concertTicket.util.OrderList;
 import concertTicket.util.OrderListClass;
-import concertTicket.event.Event;
 import concertTicket.ticket.Ticket;
 import concertTicket.comparator.TicketTypeComparator;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  *

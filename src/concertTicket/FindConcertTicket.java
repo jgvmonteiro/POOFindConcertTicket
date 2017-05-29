@@ -15,13 +15,10 @@ import concertTicket.exceptions.LogoutException;
 import concertTicket.exceptions.InvalidPrivilegeException;
 import concertTicket.exceptions.AnotherUserLoggedInException;
 import concertTicket.ticket.Ticket;
-import concertTicket.artist.Artist;
 import concertTicket.artist.ArtistEventIterator;
 import concertTicket.event.Event;
-import concertTicket.users.User;
 import java.time.LocalDate;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  *
@@ -29,6 +26,9 @@ import java.util.Map;
  */
 public interface FindConcertTicket {
     
+	static final String ADMIN_STR = "admin";
+	static final String CLIENT_STR = "client";
+	
     enum USER_TYPE{
         ADMIN, CLIENT
     }

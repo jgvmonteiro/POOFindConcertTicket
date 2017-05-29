@@ -25,8 +25,6 @@ import java.util.TreeMap;
  */
 public class FindConcertTicketClass implements FindConcertTicket {
 
-	private static final String ADMIN_STR = "admin";
-	private static final String CLIENT_STR = "client";
 	
     private User currentUser;
     private Map<String,Artist> artists;

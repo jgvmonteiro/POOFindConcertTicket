@@ -1,7 +1,6 @@
 
 package concertTicket.ticket;
 
-import concertTicket.event.Event;
 import java.time.LocalDate;
 
 /**
