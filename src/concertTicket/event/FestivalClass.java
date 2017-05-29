@@ -58,10 +58,10 @@ public class FestivalClass extends EventClass implements Festival{
     @Override
     public FestivalTicket buyTicket(LocalDate[] dates) throws EventSoldOutException{
         for(LocalDate date:dates)
-            if(availableTickets(date)>0)
-                soldTickets.replace(date, soldTickets.get(date)+1);
-            else
+            if(availableTickets(date)<=0)
                 throw new EventSoldOutException();
+        for(LocalDate date:dates)
+            soldTickets.replace(date, soldTickets.get(date)+1);
         return new FestivalTicketClass(name(), dates, prices[dates.length-1]);
     }
 

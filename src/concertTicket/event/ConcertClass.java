@@ -34,7 +34,7 @@ public class ConcertClass extends EventClass implements Concert{
 
     @Override
     public ConcertTicket buyTickets(int amount) throws EventSoldOutException{
-       if(availableTickets()>0)
+       if(availableTickets()>=amount)
            soldTickets+=amount;
        else
            throw new EventSoldOutException();
