@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Joao Monteiro
+ * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class ClientClass extends UserClass implements Client{
 

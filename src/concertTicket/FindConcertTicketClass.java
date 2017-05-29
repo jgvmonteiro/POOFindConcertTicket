@@ -21,7 +21,7 @@ import java.util.TreeMap;
 
 /**
  *
- * @author Joao Monteiro, Diogo Tavares 
+ * @author Joao Monteiro 51105, Diogo Tavares 50309, Diogo Tavares 
  */
 public class FindConcertTicketClass implements FindConcertTicket {
 
@@ -31,7 +31,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     private User currentUser;
     private Map<String,Artist> artists;
     private Map<String,User> users;
-    private Map<EVENT_TYPE,List<Event>> eventsType;
+    private Map<EVENT_TYPE,OrderList<Event>> eventsType;
     private Map<String, Map<EVENT_TYPE, OrderList<Event>>> artistEvents;
     private Map<LocalDate, Map<String,Event>> events;
     private List<Event> eventsList;
@@ -41,9 +41,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.events = new HashMap<LocalDate, Map<String,Event>>();
         this.artists = new HashMap<String,Artist>();
         this.users = new HashMap<String,User>();
-        this.eventsType = new HashMap<EVENT_TYPE, List<Event>>();
-        this.eventsType.put(EVENT_TYPE.CONCERT, new ArrayList<Event>());
-        this.eventsType.put(EVENT_TYPE.FESTIVAL, new ArrayList<Event>());
+        this.eventsType = new HashMap<EVENT_TYPE, OrderList<Event>>();
+        this.eventsType.put(EVENT_TYPE.CONCERT, new OrderListClass<Event>(new DateComparator(), true));
+        this.eventsType.put(EVENT_TYPE.FESTIVAL, new OrderListClass<Event>(new DateComparator(), true));
         this.artistEvents = new HashMap<String, Map<EVENT_TYPE, OrderList<Event>>>();
         this.eventsList = new ArrayList<Event>();
         this.eventsMostSold = new OrderListClass<Event>(new MostSoldComparator(), false);

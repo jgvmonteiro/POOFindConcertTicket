@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Joao Monteiro
+ * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public interface Band {
     

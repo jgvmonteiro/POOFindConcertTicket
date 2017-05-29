@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ASUSLAPTOP
+ * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class Main {
 
@@ -73,17 +73,15 @@ public class Main {
     private static final String SYS_ARTIST_ADDED_SUCCESS = "Artist added.\n";
     private static final String SYS_SHOW_ADDED_SUCCESS = "Show added.\n";
     private static final String SYS_TICKET_BUY_SUCCESS = "Ticket bought with cost %d.\n\n"; //ticket price
-    private static final String SYS_USER_TICKET_LIST = "My Tickets:\n";
     private static final String SYS_LOGIN_SUCCESS = "Welcome %s\n\n"; //user email
     private static final String SYS_LOGOUT_SUCCESS = "Goodbye %s\n\n"; //user email
-    private static final String SYS_TICKET_LIST_HEADER = "My tickets:\n";
+    private static final String SYS_TICKET_LIST_HEADER = "My tickets:";
     private static final String SYS_MOST_SOLD_SHOWS = "Most sold shows:";
 
     //Exceptions
     private static final String EX_ANOTHER_USER_LOGGED_IN = "Another user is logged in.\n";
     private static final String EX_ARTIST_ALREADY_EXISTS = "Artist name already exists.\n";
-    private static final String EX_ARTIST_NOT_FOUND_SINGLE = "Artist name does not exist.\n";
-    private static final String EX_ARTIST_NOT_FOUND_MULTIPLE = "Artist names do not exist.\n";
+    private static final String EX_ARTIST_NOT_FOUND = "Artist name(s) do(es) not exist(s):";
     private static final String EX_EVENT_ALREADY_EXISTS = "Show already exists.\n";
     private static final String EX_EVENT_NOT_FOUND = "Show does not exist.\n";
     private static final String EX_EVENT_SOLD_OUT = "There are not sufficient seats for the request.\n";
@@ -271,12 +269,11 @@ public class Main {
     
     private static void handleArtistsNotFoundException(ArtistNotFoundException e){
     	String[] list = e.getArtistList();
-    	if(list.length == 1)
-    		System.out.println(EX_ARTIST_NOT_FOUND_SINGLE);
-    	else System.out.println(EX_ARTIST_NOT_FOUND_MULTIPLE);
-    	
+    	System.out.println(EX_ARTIST_NOT_FOUND);
     	for(int i = 0; i < list.length; i++)
     		System.out.println(list[i]);
+    	
+    	System.out.println();
     }
     
     private static void buyTicket(FindConcertTicket fct, Scanner in){
@@ -359,8 +356,8 @@ public class Main {
                     System.out.println(date.toString());
                 System.out.println(ft.totalPrice());
             }
-            System.out.println();
         }    
+        System.out.println();
     }
 
     private static void listAll(FindConcertTicket fct, Scanner in){
@@ -413,11 +410,11 @@ public class Main {
             System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
             while(it.hasNextFestival())
                 printEventData(it.nextFestival());
-            
-            System.out.println();
         } catch (ArtistNotFoundException ex) {
             System.out.printf(SYS_ARTIST_SEARCH_CONCERTS, artistName);
             System.out.printf(SYS_ARTIST_SEARCH_FESTIVALS, artistName);
+        } finally {
+        	System.out.println();
         }
     }
     
@@ -429,7 +426,7 @@ public class Main {
             Event next = it.next();
             printEventData(next);
         }
-        
+        System.out.println();
         
     }
   

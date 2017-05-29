@@ -5,7 +5,7 @@ import concertTicket.event.Event;
 
 /**
  *
- * @author Joao Monteiro
+ * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public abstract class TicketClass implements Ticket{
     

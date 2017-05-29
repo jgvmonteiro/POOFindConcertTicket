@@ -1,6 +1,5 @@
 package concertTicket.util;
 
-import concertTicket.event.Event;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author Joao Monteiro
+ * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class OrderListClass<E> implements OrderList<E>{
 
