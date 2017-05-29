@@ -243,10 +243,10 @@ public class Main {
             int duration = Integer.parseInt(in.nextLine());
             LocalDate startDate = LocalDate.parse(in.nextLine());
             String[][] alignment = new String[duration][];
-            for(int i=0; i<duration;i++){
+            for(int i=0; i<duration; i++){
                 int n = Integer.parseInt(in.nextLine());
                 String[] artists = new String[n];
-                for(int j=0; j<n;j++){
+                for(int j=0; j < n; j++){
                     artists[j] = in.nextLine();
                 }
                 alignment[i] = artists;
