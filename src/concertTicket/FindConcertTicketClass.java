@@ -25,14 +25,17 @@ import java.util.TreeMap;
  */
 public class FindConcertTicketClass implements FindConcertTicket {
 
+	private static final String ADMIN_STR = "admin";
+	private static final String CLIENT_STR = "client";
+	
     private User currentUser;
     private Map<String,Artist> artists;
     private Map<String,User> users;
     private Map<EVENT_TYPE,List<Event>> eventsType;
-    private List<Event> eventsList;
-    private OrderList<Event> eventsMostSold;
     private Map<String, Map<EVENT_TYPE, OrderList<Event>>> artistEvents;
     private Map<LocalDate, Map<String,Event>> events;
+    private List<Event> eventsList;
+    private OrderList<Event> eventsMostSold;
     
     public FindConcertTicketClass() {
         this.events = new HashMap<LocalDate, Map<String,Event>>();
@@ -41,9 +44,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
         this.eventsType = new HashMap<EVENT_TYPE, List<Event>>();
         this.eventsType.put(EVENT_TYPE.CONCERT, new ArrayList<Event>());
         this.eventsType.put(EVENT_TYPE.FESTIVAL, new ArrayList<Event>());
+        this.artistEvents = new HashMap<String, Map<EVENT_TYPE, OrderList<Event>>>();
         this.eventsList = new ArrayList<Event>();
         this.eventsMostSold = new OrderListClass<Event>(new MostSoldComparator(), false);
-        this.artistEvents = new HashMap<String, Map<EVENT_TYPE, OrderList<Event>>>();
         this.currentUser = null;
     }
 
@@ -185,13 +188,13 @@ public class FindConcertTicketClass implements FindConcertTicket {
         String passw;
         User user;
         if(type == ADMIN){
-            passw = "admin"+(adminUsersCount()+1);
+            passw = ADMIN_STR + (adminUsersCount() + 1);
             user = new AdminClass(email, passw);
         }else{
-            passw = "client"+(users.size() - adminUsersCount() +1);
+            passw = CLIENT_STR + (users.size() - adminUsersCount() + 1);
             user = new ClientClass(email, passw);
         }
-        users.put(email,user);
+        users.put(email, user);
         return passw;
     }
     
