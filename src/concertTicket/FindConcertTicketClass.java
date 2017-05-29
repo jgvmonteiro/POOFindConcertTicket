@@ -55,7 +55,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (artists.containsKey(name)) 
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
-        addartist(name, artist);
+        addArtist(name, artist);
     }
 
     @Override
@@ -65,10 +65,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (artists.containsKey(name))
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
-        addartist(name, artist);
+        addArtist(name, artist);
     }
    
-    private void addartist(String name, Artist artist){
+    private void addArtist(String name, Artist artist){
         artists.put(name, artist);
         artistEvents.put(name, new HashMap<EVENT_TYPE, OrderList<Event>>());
         artistEvents.get(name).put(EVENT_TYPE.CONCERT, new OrderListClass<Event>(new DateComparator(),true));
@@ -88,10 +88,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(date))
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
-        artistEvents.get(artistName).get(EVENT_TYPE.CONCERT).add(e);
-        eventsType.get(EVENT_TYPE.CONCERT).add(e);
-        eventsList.add(e);
-        eventsMostSold.add(e);
+        String[] artistNameArray = {artistName};
+        addEvent(e, artistNameArray, EVENT_TYPE.CONCERT);
     }
 
     @Override
@@ -115,20 +113,24 @@ public class FindConcertTicketClass implements FindConcertTicket {
                 }
             mapAlignemnt.put(date, artists);
         }
-        if(notFound.size()>0){
+        if(notFound.size()>0)
             throw new ArtistNotFoundException(notFound);
-        }
         Event e = new FestivalClass(eventName, description, mapAlignemnt, startDate, tickets, price);
         if(!events.containsKey(startDate))
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
-        for(String artist : allArtists)
-            artistEvents.get(artist).get(EVENT_TYPE.FESTIVAL).add(e);
-        eventsType.get(EVENT_TYPE.FESTIVAL).add(e);
+        addEvent(e, (String[])allArtists.toArray(), EVENT_TYPE.FESTIVAL);
+    }
+ 
+    private void addEvent(Event e, String[] artists, EVENT_TYPE type){
+        for(String artist : artists)
+            artistEvents.get(artist).get(type).add(e);
+        eventsType.get(type).add(e);
         eventsList.add(e);
         eventsMostSold.add(e);
     }
-   
+    
+    
     @Override
     public int buyTicket(String eventName, LocalDate startDate, int ticketCount)throws InvalidPrivilegeException, EventNotFoundException, EventSoldOutException{
     	if (!(currentUser instanceof Client)) 
