@@ -235,10 +235,10 @@ public class Main {
         System.out.println(SYS_CONCERT_OR_FESTIVAL);
         String resp = in.nextLine();
         if(resp.equalsIgnoreCase(CMD_CONCERT)){
-            String artist_name = in.nextLine();
+            String artistName = in.nextLine();
             LocalDate date = LocalDate.parse(in.nextLine());
             int price = Integer.parseInt(in.nextLine());
-            fct.addEvent(name, artist_name, desc, date,tickets, price);      
+            fct.addEvent(name, artistName, desc, date,tickets, price);      
         }else{
             int duration = Integer.parseInt(in.nextLine());
             LocalDate startDate = LocalDate.parse(in.nextLine());
