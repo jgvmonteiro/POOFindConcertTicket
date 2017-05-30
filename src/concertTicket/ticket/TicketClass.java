@@ -21,13 +21,10 @@ public abstract class TicketClass implements Ticket{
         return eventName;
     }
 
-
     @Override
     public int totalPrice() {
         return totalPrice;
-    }
-    
-    
+    }        
     
     public int compareTo(Ticket t){
     	return 0;
