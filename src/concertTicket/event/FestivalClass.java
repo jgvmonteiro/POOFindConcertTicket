@@ -48,8 +48,6 @@ public class FestivalClass extends EventClass implements Festival{
         return alignemnt.size();
     }
     
-    
-    
     @Override
     public int price(int days) {
         return prices[days-1];

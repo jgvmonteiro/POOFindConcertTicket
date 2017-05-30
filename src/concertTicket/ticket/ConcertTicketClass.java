@@ -23,8 +23,6 @@ public class ConcertTicketClass extends TicketClass implements ConcertTicket{
         return  date;
     }
 
-    
-    
     @Override
     public int numberTickets() {
         return numTickets;

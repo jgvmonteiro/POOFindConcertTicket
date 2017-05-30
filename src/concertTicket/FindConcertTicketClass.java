@@ -21,7 +21,7 @@ import java.util.TreeMap;
 
 /**
  *
- * @author Joao Monteiro 51105, Diogo Tavares 50309, Diogo Tavares 
+ * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class FindConcertTicketClass implements FindConcertTicket {
 
