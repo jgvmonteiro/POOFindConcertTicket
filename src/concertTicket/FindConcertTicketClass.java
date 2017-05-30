@@ -188,23 +188,15 @@ public class FindConcertTicketClass implements FindConcertTicket {
         String passw;
         User user;
         if(type == ADMIN){
-            passw = ADMIN_STR + (adminUsersCount() + 1);
+            passw = ADMIN_STR + (AdminClass.adminCount+ 1);
             user = new AdminClass(email, passw);
         }else{
-            passw = CLIENT_STR + (users.size() - adminUsersCount() + 1);
+            passw = CLIENT_STR + (ClientClass.clientCount + 1);
             user = new ClientClass(email, passw);
         }
         users.put(email, user);
         return passw;
     }
-    
-    private int adminUsersCount(){
-        int c = 0;
-        for(User user : users.values())
-            if(user instanceof Admin)
-                c++;
-        return c;
-    }   
 
     @Override
     public Iterator<Event> listAllEvents() {
