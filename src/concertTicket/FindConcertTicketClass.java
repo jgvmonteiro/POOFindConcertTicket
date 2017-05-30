@@ -120,7 +120,8 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(startDate))
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
-        addEventToCollections(e, (String[])allArtists.toArray(), EVENT_TYPE.FESTIVAL);
+        String[] artistNameArray = allArtists.toArray(new String[allArtists.size()]);
+        addEventToCollections(e, artistNameArray, EVENT_TYPE.FESTIVAL);
     }
  
     private void addEventToCollections(Event e, String[] artists, EVENT_TYPE type){
