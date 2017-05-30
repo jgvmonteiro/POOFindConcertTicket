@@ -12,9 +12,16 @@ public class ConcertTicketClass extends TicketClass implements ConcertTicket{
     int numTickets;
     LocalDate date;
 
-    public ConcertTicketClass(String eventName,LocalDate date, int numTickets, int price) {
-        super(eventName, numTickets*price);
-        this.numTickets = numTickets;
+    /**
+     * 
+     * @param eventName event's name
+     * @param date event's date
+     * @param ammount number of persons the ticket can give access to the event
+     * @param price price per person
+     */
+    public ConcertTicketClass(String eventName,LocalDate date, int ammount, int price) {
+        super(eventName, ammount*price);
+        this.numTickets = ammount;
         this.date = date;
     }
 

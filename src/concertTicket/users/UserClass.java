@@ -10,6 +10,11 @@ public abstract class UserClass implements User{
     private String email;
     private String password;
     
+    /**
+     * 
+     * @param email account email
+     * @param password account password
+     */
     public UserClass(String email, String password) {
         this.email = email;
         this.password = password;

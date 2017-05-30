@@ -15,6 +15,11 @@ public class ArtistClass implements Artist{
     private String name;
     private List<String> albums;
 
+    /**
+     * 
+     * @param name name of the artist
+     * @param albums all artist albums names
+     */
     public ArtistClass(String name, String[] albums) {
         this.name = name;
         for(String album : albums)

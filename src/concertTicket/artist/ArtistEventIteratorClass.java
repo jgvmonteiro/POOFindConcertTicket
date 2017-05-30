@@ -18,6 +18,10 @@ public class ArtistEventIteratorClass implements ArtistEventIterator{
     Iterator<Event> concerts;
     Iterator<Event> festivals;
     
+    /**
+     * 
+     * @param eventsMap map containing a list event according with the type of the event
+     */
     public ArtistEventIteratorClass(Map<FindConcertTicket.EVENT_TYPE, OrderList<Event>> eventsMap) {
         concerts = eventsMap.get(concertTicket.FindConcertTicket.EVENT_TYPE.CONCERT).iterator();
         festivals = eventsMap.get(concertTicket.FindConcertTicket.EVENT_TYPE.FESTIVAL).iterator();

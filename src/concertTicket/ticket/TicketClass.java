@@ -11,6 +11,11 @@ public abstract class TicketClass implements Ticket{
     String eventName;
     int totalPrice;
     
+    /**
+     * 
+     * @param eventName event's name
+     * @param totalPrice this ticket total price
+     */
     public TicketClass(String eventName, int totalPrice) {
         this.eventName = eventName;
         this.totalPrice = totalPrice;

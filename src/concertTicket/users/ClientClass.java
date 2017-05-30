@@ -16,6 +16,11 @@ public class ClientClass extends UserClass implements Client{
     OrderList<Ticket> myTickets;
     public static int clientCount = 0;
     
+    /**
+     * 
+     * @param email account email
+     * @param password account password
+     */
     public ClientClass(String email, String password) {
         super(email, password);
         myTickets = new OrderListClass<Ticket>(new TicketTypeComparator(), true);

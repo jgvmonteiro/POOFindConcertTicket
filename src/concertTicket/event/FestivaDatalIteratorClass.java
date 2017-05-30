@@ -17,7 +17,10 @@ public class FestivaDatalIteratorClass implements FestivalDataIterator{
     Artist[] artistArray;
     int artist_index;
     
-    
+    /**
+     * 
+     * @param alignment map containing the artist to perform in the festival for each date
+     */
     public FestivaDatalIteratorClass(Map<LocalDate, Artist[]> alignment) {
         this.dates = alignment.keySet().iterator();
         this.artists = alignment.values().iterator();

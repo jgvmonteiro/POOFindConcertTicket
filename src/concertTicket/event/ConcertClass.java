@@ -18,7 +18,15 @@ public class ConcertClass extends EventClass implements Concert{
     private int price;
     int soldTickets, capacity;
 
-    
+    /**
+     * 
+     * @param eventName event's name
+     * @param artist artist's name
+     * @param date event's date
+     * @param description event's description
+     * @param capacity concert max capacity
+     * @param price concert price per person
+     */
     public ConcertClass(String eventName, Artist artist, LocalDate date, String description, int capacity, int price) {
         super(eventName, description, date);
         this.artist = artist;

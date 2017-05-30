@@ -15,6 +15,12 @@ public class BandClass extends ArtistClass implements Band{
 
     private List<String> elements;
     
+    /**
+     * 
+     * @param name band's name
+     * @param albuns all band's albums
+     * @param elements band's elements names
+     */
     public BandClass(String name, String[] albuns, String[] elements) {
         super(name, albuns);
         this.elements = new ArrayList<String>();
