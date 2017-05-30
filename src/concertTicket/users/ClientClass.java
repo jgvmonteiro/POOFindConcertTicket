@@ -14,10 +14,12 @@ import java.util.Iterator;
 public class ClientClass extends UserClass implements Client{
 
     OrderList<Ticket> myTickets;
+    public static int clientCount = 0;
     
     public ClientClass(String email, String password) {
         super(email, password);
         myTickets = new OrderListClass<Ticket>(new TicketTypeComparator(), true);
+        clientCount++;
     }
 
     @Override

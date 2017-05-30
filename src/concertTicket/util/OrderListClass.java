@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class OrderListClass<E> implements OrderList<E>{
     private boolean sortOnAdd;
     
     public OrderListClass(Comparator<E> comparator, boolean sortOnAdd) {
-        this.list = new ArrayList<E>();
+        this.list = new LinkedList<E>();
         this.comparator = comparator;
         this.sortOnAdd = sortOnAdd;
     }
@@ -27,11 +28,6 @@ public class OrderListClass<E> implements OrderList<E>{
         list.add(event);
         if(sortOnAdd)
             Collections.sort(list, comparator);
-    }
-
-    @Override
-    public E get(int index) {
-        return list.get(index);
     }
 
     @Override

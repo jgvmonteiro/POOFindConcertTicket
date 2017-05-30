@@ -9,7 +9,6 @@ import java.util.Iterator;
 public interface OrderList<E> {
 
     void add(E event);
-    E get(int index);
     Iterator<E> iterator();
     
 }
