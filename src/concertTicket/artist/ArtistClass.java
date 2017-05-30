@@ -3,6 +3,7 @@ package concertTicket.artist;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class ArtistClass implements Artist{
      */
     public ArtistClass(String name, String[] albums) {
         this.name = name;
+        this.albums = new LinkedList<String>();
         for(String album : albums)
             this.albums.add(album);
     }
