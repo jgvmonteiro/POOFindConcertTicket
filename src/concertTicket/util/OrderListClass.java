@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * This class implements OrderList interface
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class OrderListClass<E> implements OrderList<E>{
@@ -17,8 +17,13 @@ public class OrderListClass<E> implements OrderList<E>{
     private Comparator<E> comparator;
     private boolean sortOnAdd;
     
+    /**
+     * 
+     * @param comparator custom comparator to keep the list ordered
+     * @param sortOnAdd if true will sort the list after adding a new element, if false will sort before returning an iterator
+     */
     public OrderListClass(Comparator<E> comparator, boolean sortOnAdd) {
-        this.list = new LinkedList<E>();
+        this.list = new LinkedList<E>(); //Used linked list for performace, because no need to use the get method
         this.comparator = comparator;
         this.sortOnAdd = sortOnAdd;
     }
