@@ -6,7 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
+ * This class implements Band interface
+ * Extends ArtistClass 
+ * 
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class BandClass extends ArtistClass implements Band{

@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * This class implements Festival interface
+ * 
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class FestivalClass extends EventClass implements Festival{

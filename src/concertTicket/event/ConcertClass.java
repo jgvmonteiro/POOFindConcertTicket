@@ -8,6 +8,7 @@ import concertTicket.ticket.ConcertTicketClass;
 import java.time.LocalDate;
 
 /**
+ * This class implements Concert interface
  *
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */

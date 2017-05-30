@@ -6,7 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ *  This class implements FestivalDataIterator
+ * 
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class FestivaDatalIteratorClass implements FestivalDataIterator{

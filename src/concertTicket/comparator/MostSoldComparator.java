@@ -4,7 +4,11 @@ import concertTicket.event.Event;
 import java.util.Comparator;
 
 /**
- *
+ * Custom comparator
+ * Sorts a list of Event(s) from most sold to least
+ * If two events equal sold from oldest to newer
+ * If two events with equal dates sorts alphabetically 
+ * 
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class MostSoldComparator implements Comparator<Event> {

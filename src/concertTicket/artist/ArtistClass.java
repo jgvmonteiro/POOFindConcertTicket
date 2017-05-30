@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * This class implements Artist interface
  *
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */

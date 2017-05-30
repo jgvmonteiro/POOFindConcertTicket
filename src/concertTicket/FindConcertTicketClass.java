@@ -10,7 +10,6 @@ import concertTicket.users.*;
 import concertTicket.ticket.*;
 import concertTicket.artist.*;
 import static concertTicket.FindConcertTicket.USER_TYPE.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +19,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
+ * FindConcertTicket application main class
+ * Implements the interface FindConcertTicket
  *
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
@@ -55,7 +56,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (artists.containsKey(name)) 
             throw new ArtistAlreadyExistsException();
         Artist artist = new ArtistClass(name, listAlbuns);
-        addArtist(name, artist);
+        addArtistToCollections(name, artist);
     }
 
     @Override
@@ -65,10 +66,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if (artists.containsKey(name))
             throw new ArtistAlreadyExistsException();
         Artist artist = new BandClass(name, listAlbuns, elements);
-        addArtist(name, artist);
+        addArtistToCollections(name, artist);
     }
    
-    private void addArtist(String name, Artist artist){
+    private void addArtistToCollections(String name, Artist artist){
         artists.put(name, artist);
         artistEvents.put(name, new HashMap<EVENT_TYPE, OrderList<Event>>());
         artistEvents.get(name).put(EVENT_TYPE.CONCERT, new OrderListClass<Event>(new DateComparator(),true));
@@ -89,7 +90,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
             events.put(date, new HashMap<String, Event>());
         events.get(date).put(eventName, e);
         String[] artistNameArray = {artistName};
-        addEvent(e, artistNameArray, EVENT_TYPE.CONCERT);
+        addEventToCollections(e, artistNameArray, EVENT_TYPE.CONCERT);
     }
 
     @Override
@@ -119,10 +120,10 @@ public class FindConcertTicketClass implements FindConcertTicket {
         if(!events.containsKey(startDate))
             events.put(startDate, new HashMap<String, Event>());
         events.get(startDate).put(eventName, e);
-        addEvent(e, (String[])allArtists.toArray(), EVENT_TYPE.FESTIVAL);
+        addEventToCollections(e, (String[])allArtists.toArray(), EVENT_TYPE.FESTIVAL);
     }
  
-    private void addEvent(Event e, String[] artists, EVENT_TYPE type){
+    private void addEventToCollections(Event e, String[] artists, EVENT_TYPE type){
         for(String artist : artists)
             artistEvents.get(artist).get(type).add(e);
         eventsType.get(type).add(e);
@@ -180,9 +181,9 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
     
     @Override
-    public String register(USER_TYPE type, String email) throws UserAlreadyLoggedInException, UserAlreadyExistsException {
+    public String register(USER_TYPE type, String email) throws AnotherUserLoggedInException, UserAlreadyExistsException {
     	if(currentUser!=null)
-            throw new UserAlreadyLoggedInException();
+            throw new AnotherUserLoggedInException();
         if(users.containsKey(email))
             throw new UserAlreadyExistsException();
         String passw;
@@ -220,7 +221,7 @@ public class FindConcertTicketClass implements FindConcertTicket {
     }
 
     @Override
-    public Event checkEventData(String eventName, LocalDate date) throws EventNotFoundException {
+    public Event listEventData(String eventName, LocalDate date) throws EventNotFoundException {
         if(events.get(date) == null || events.get(date).get(eventName) == null)
         	throw new EventNotFoundException();
         return events.get(date).get(eventName);
@@ -232,7 +233,6 @@ public class FindConcertTicketClass implements FindConcertTicket {
             throw new ArtistNotFoundException();
       return new ArtistEventIteratorClass(artistEvents.get(artistName));
     }
-
 
     @Override
     public Iterator<Ticket> listTickets() {

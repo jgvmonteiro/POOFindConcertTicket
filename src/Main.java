@@ -2,7 +2,6 @@
 import concertTicket.FindConcertTicketClass;
 import concertTicket.FindConcertTicket;
 import java.util.Scanner;
-
 import concertTicket.FindConcertTicket.*;
 import concertTicket.artist.ArtistEventIterator;
 import concertTicket.event.Concert;
@@ -161,7 +160,7 @@ public class Main {
             }
             String password = fct.register(type, email);
             System.out.printf(SYS_USER_REGISTER_SUCCESS, password);
-        } catch (UserAlreadyLoggedInException e) {
+        } catch (AnotherUserLoggedInException e) {
             System.out.println(EX_USER_ALREADY_LOGGED_IN);
         } catch (UserAlreadyExistsException e) {
             System.out.println(EX_USER_ALREADY_EXISTS);
@@ -384,7 +383,7 @@ public class Main {
         try {
             String name = in.nextLine();
             LocalDate date = LocalDate.parse(in.nextLine());
-            Event e = fct.checkEventData(name, date);
+            Event e = fct.listEventData(name, date);
             System.out.println(e.name() + HELP_ON + date.toString() + HELP_COLON);
             printEventData(e);
             System.out.println();
@@ -413,6 +412,7 @@ public class Main {
     }
     
     private static void listMostSold(FindConcertTicket fct, Scanner in){
+        
         System.out.println(SYS_MOST_SOLD_SHOWS);
         Iterator<Event> it = fct.listMostSold();
         while (it.hasNext()) {

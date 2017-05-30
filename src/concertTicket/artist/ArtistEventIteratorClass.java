@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * This class implements ArtistEventIterator interface
+ * 
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class ArtistEventIteratorClass implements ArtistEventIterator{

@@ -4,32 +4,34 @@ import concertTicket.event.Concert;
 import concertTicket.event.Festival;
 
 /**
+ * Custom iterator
+ * Used to list all artist events, concert and festivals individually
  *
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public interface ArtistEventIterator {
 
-	/**
-	 * Returns true if concertIterator.hasNext()
-	 * @return true if there are more concerts to iterate
-	 */
-    boolean hasNextConcert();
-    
     /**
-     * Returns the next concert in the iterator by calling concertIterator.next()
-     * @return the next concert in the iterator
+     * 
+     * @return true if has next concert in the collection
+     */
+    boolean hasNextConcert();
+   
+    /**
+     * 
+     * @return next concert
      */
     Concert nextConcert();
     
     /**
-	 * Returns true if festivalIterator.hasNext()
-	 * @return true if there are more festivals to iterate
-	 */
+     * 
+     * @return true if has next festival in the collection
+     */
     boolean hasNextFestival();
     
     /**
-     * Returns the next festival in the iterator by calling festivalIterator.next()
-     * @return the next festival in the iterator
+     * 
+     * @return next festival
      */
     Festival nextFestival();
     

@@ -4,6 +4,7 @@ package concertTicket.event;
 import java.time.LocalDate;
 
 /**
+ * This class implements Event interface
  *
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */

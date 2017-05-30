@@ -4,6 +4,8 @@ import concertTicket.event.Event;
 import java.util.Comparator;
 
 /**
+ * Custom comparator
+ * Sorts a list of Event(s) from oldest date to newer date
  *
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */

@@ -6,7 +6,9 @@ import concertTicket.ticket.Ticket;
 import java.util.Comparator;
 
 /**
- *
+ * Custom comparator
+ * Sorts a list of Event(s), Concert tickets first and Festival tickets next
+ * 
  * @author Joao Monteiro 51105, Diogo Tavares 50309
  */
 public class TicketTypeComparator implements Comparator<Ticket>{
